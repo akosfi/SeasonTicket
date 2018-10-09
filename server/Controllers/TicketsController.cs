@@ -33,15 +33,12 @@ namespace server.Controllers
         public async Task<IActionResult> Get(int? id)
         {
             if (id == null)
-            {
-                return NotFound();
-            }
+                return NotFound("404");
+            
             var ticket = await _context.Tickets.SingleOrDefaultAsync(m => m.ID == id);
 
             if (ticket == null)
-            {
-                return NotFound();
-            }
+                return NotFound("404");
 
             return Ok(ticket);
         }
@@ -53,51 +50,66 @@ namespace server.Controllers
             //User id sessionbol lesz?
             User temporaryUser = _context.Users.First();
             //------
-            var ticket = await _context.Tickets.SingleOrDefaultAsync(m => m.ID == id);
 
-            if (ticket == null)
-            {
-                return NotFound();
-            }
+            Ticket ticketToBuy = await _context.Tickets.SingleOrDefaultAsync(m => m.ID == id);
 
-            Transaction ticketToBuy = new Transaction { OccasionNumber = ticket.OccasionNumber, RegistrationDate = DateTime.Now, ticketID = ticket.ID, userID = temporaryUser.ID };
-            await _context.Transactions.AddAsync(ticketToBuy);
+            if (ticketToBuy == null)
+                return NotFound("404");
+
+            Transaction ticketTransaction = 
+                new Transaction { OccasionNumber = ticketToBuy.OccasionNumber, RegistrationDate = DateTime.Now, ticketID = ticketToBuy.ID, userID = temporaryUser.ID };
+
+            await _context.Transactions.AddAsync(ticketTransaction);
             await _context.SaveChangesAsync();
-            return Ok("hi");
+
+            return Ok("200");
         }
         // POST api/tickets
         [HttpPost]
-        public IActionResult Post(Ticket ticket)
+        public async Task<IActionResult> Post(Ticket ticket)
         {
-            _context.Tickets.Add(ticket);
-            _context.SaveChanges();
+            await _context.Tickets.AddAsync(ticket);
+            await _context.SaveChangesAsync();
             return Ok(ticket);
         }
 
         // PUT api/tickets/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Ticket t)
+        public async Task<IActionResult> Put(int id, Ticket ticket)
         {
+            Ticket toUpdate = await _context.Tickets.SingleOrDefaultAsync(t => t.ID == id);
+
+            if (toUpdate == null)
+                return NotFound("404");
+
+            if (ticket.IsActive != toUpdate.IsActive) toUpdate.IsActive = ticket.IsActive;
+            if (ticket.OccasionNumber != toUpdate.OccasionNumber) toUpdate.OccasionNumber = ticket.OccasionNumber;
+            if (ticket.Price != toUpdate.Price) toUpdate.Price = ticket.Price;
+            if (ticket.DaysOfValidity != toUpdate.DaysOfValidity) toUpdate.DaysOfValidity = ticket.DaysOfValidity;
+
+            await _context.SaveChangesAsync();
+            
+            /*
             t.ID = id;
             _context.Tickets.Attach(t);
             _context.Entry(t).Property(s => s.Price).IsModified = true;
             _context.SaveChanges();
-
+            */
+            return Ok("200");
         }
 
         // DELETE api/tickets/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            Ticket ticket = (Ticket)_context.Tickets.Where(t => t.ID == id).First();
+            Ticket ticket = await _context.Tickets.SingleOrDefaultAsync(t => t.ID == id);
             if(ticket == null)
-            {
-                return NotFound("not found");
-            }
-            _context.Tickets.Remove(ticket);
-            _context.SaveChanges();
+                return NotFound("404");
 
-            return Ok("success");
+            _context.Tickets.Remove(ticket);
+            await _context.SaveChangesAsync();
+
+            return Ok("200");
         }
     }
 }

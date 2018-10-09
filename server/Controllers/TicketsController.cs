@@ -23,7 +23,6 @@ namespace server.Controllers
 
         // GET api/tickets
         [HttpGet]
-
         public IActionResult Get()
         {
             return Ok(_context.Tickets);
@@ -47,6 +46,25 @@ namespace server.Controllers
             return Ok(ticket);
         }
 
+        // GET
+        [HttpGet("{id}/buy")]
+        public async Task<IActionResult> BuyTicket(int id)
+        {
+            //User id sessionbol lesz?
+            User temporaryUser = _context.Users.First();
+            //------
+            var ticket = await _context.Tickets.SingleOrDefaultAsync(m => m.ID == id);
+
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+
+            Transaction ticketToBuy = new Transaction { OccasionNumber = ticket.OccasionNumber, RegistrationDate = DateTime.Now, ticketID = ticket.ID, userID = temporaryUser.ID };
+            await _context.Transactions.AddAsync(ticketToBuy);
+            await _context.SaveChangesAsync();
+            return Ok("hi");
+        }
         // POST api/tickets
         [HttpPost]
         public IActionResult Post(Ticket ticket)

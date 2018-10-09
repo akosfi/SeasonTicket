@@ -7,6 +7,7 @@ namespace server.Models
 {
     public class Transaction
     {
+        public int ID { get; set; }
         public DateTime RegistrationDate { get; set; }
         public int OccasionNumber { get; set; }
         public int userID { get; set; }

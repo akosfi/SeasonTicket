@@ -15,7 +15,7 @@ namespace server.Models
         public Boolean IsActive { get; set; }
         public int businessID { get; set; }
 
-        //public ICollection<Transaction> Transactions { get; set; } //erre szukseg van?
-        //public Business Business { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
+        public Business Business { get; set; }
     }
 }

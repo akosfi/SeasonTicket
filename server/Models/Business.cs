@@ -7,13 +7,16 @@ namespace server.Models
 {
     public class Business
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public int userID { get; set; }
 
+        public User User { get; set; }
+
         public ICollection<Place> Places { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
-        public User User { get; set; }
+        
         
     }
 }

@@ -15,5 +15,6 @@ namespace server.Models
 
         public User User { get; set; }
         public Ticket Ticket { get; set; }
+        public ICollection<CheckIn> CheckIns { get; set; }
     }
 }

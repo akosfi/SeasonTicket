@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="server.Models.Business">
+    <Position X="7.25" Y="5" Width="1.5" />
+    <Members>
+      <Property Name="userID" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Tickets" Type="server.Models.Ticket" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="6.125" />
+        <Point X="11.312" Y="6.125" />
+        <Point X="11.312" Y="5.123" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.736" Y="0.05" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAACAAgAAACAAAAAQAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Models\Business.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tickets" />
+      <Property Name="Places" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="server.Models.GoogleLogin">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <Members>
+      <Property Name="userID" Hidden="true" />
+    </Members>
+    <AssociationLine Name="User" Type="server.Models.User">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.623" Y="0.044" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAgEAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\GoogleLogin.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="server.Models.User">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <AssociationLine Name="Transactions" Type="server.Models.Transaction" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="4.312" />
+        <Point X="7.25" Y="4.312" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Businesses" Type="server.Models.Business" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.156" Y="4.93" />
+        <Point X="5.156" Y="5.503" />
+        <Point X="6.559" Y="5.503" />
+        <Point X="6.559" Y="5.5" />
+        <Point X="7.25" Y="5.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AACCACAAACAAgAAACAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="GoogleLogin" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Transactions" />
+      <Property Name="Businesses" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="server.Models.Transaction">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <Members>
+      <Property Name="ticketID" Hidden="true" />
+      <Property Name="userID" Hidden="true" />
+    </Members>
+    <AssociationLine Name="User" Type="server.Models.User" FixedFromPoint="true">
+      <Path>
+        <Point X="7.25" Y="3.938" />
+        <Point X="5.5" Y="3.938" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Ticket" Type="server.Models.Ticket" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="3.938" />
+        <Point X="10.25" Y="3.938" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CheckIns" Type="server.Models.CheckIn" FixedFromPoint="true">
+      <Path>
+        <Point X="8.188" Y="3.25" />
+        <Point X="8.188" Y="2.546" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.857" Y="0.079" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAkAACCAAQAAAAAQAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Transaction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="User" />
+      <Property Name="Ticket" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="CheckIns" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="server.Models.Ticket">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <Members>
+      <Property Name="businessID" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Business" Type="server.Models.Business" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11" Y="5.123" />
+        <Point X="11" Y="5.75" />
+        <Point X="8.75" Y="5.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Transactions" Type="server.Models.Transaction" FixedFromPoint="true">
+      <Path>
+        <Point X="10.25" Y="4.312" />
+        <Point X="8.75" Y="4.312" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QACAAAAAAUAAgAAAEBAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Ticket.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Transactions" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="server.Models.CheckIn">
+    <Position X="7.25" Y="1.25" Width="1.5" />
+    <Members>
+      <Property Name="transactionID" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Transaction" Type="server.Models.Transaction" FixedToPoint="true">
+      <Path>
+        <Point X="7.938" Y="2.546" />
+        <Point X="7.938" Y="3.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AACAAAAgAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Models\CheckIn.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Transaction" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="server.Models.Place">
+    <Position X="7.25" Y="7.25" Width="1.5" />
+    <Members>
+      <Property Name="businessID" Hidden="true" />
+    </Members>
+    <AssociationLine Name="Business" Type="server.Models.Business" FixedToPoint="true">
+      <Path>
+        <Point X="8.125" Y="7.25" />
+        <Point X="8.125" Y="6.488" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.822" Y="0.099" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAEAAgAAAAAAAAAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Place.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Business" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

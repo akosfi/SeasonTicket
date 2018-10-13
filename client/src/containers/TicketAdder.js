@@ -14,16 +14,34 @@ class TicketAdder extends React.Component{
 
         alert(this.state.priceValue);
 
-        let objectToSend = {
+        let ticketToSend = {
             price: this.state.priceValue
         }
 
-        store.dispatch({
+        /*store.dispatch({
             type: "ADD_TICKET",
             payload: {
                 
             }
+        })*/
+
+        fetch("https://localhost:44306/api/tickets", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({price: 5000, daysOfValidity: 40, isActive: true})
         })
+        .then(res => res.json())
+        .then(res => {
+            console.log("EREDMENY: " + res)
+        })
+        .catch(err=>{
+            console.log("ERROR: " + err)
+        });
+
+
         
         e.preventDefault();
     }

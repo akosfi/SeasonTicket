@@ -21,18 +21,20 @@ class TicketList extends React.Component{
                     tickets: response
                 }
             });
-
             
         });
     }
 
+
     render(){
         return (<div>            
                 {Object.keys(store.getState().tickets).map(function(key) {
-                    return <TicketItem id={key} item={store.getState().tickets[key]}/> 
-                })}                      
+                    return <TicketItem id={key} item={store.getState().tickets[key]} /> 
+                })}                
         </div>)
     }
+
+
 }
 
 export default TicketList;

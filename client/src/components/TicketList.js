@@ -1,31 +1,36 @@
 import React from 'react';
+import store from '../store';
+import TicketItem from './TicketItem';
 
 class TicketList extends React.Component{
     constructor(props){
         super(props);
 
         this.state = {
-            apiResult: []
+            tickets: {}
         }
     }
-    componentDidMount(){
+    componentWillMount(){
         fetch("https://localhost:44306/api/tickets")
         .then(response => response.json())
         .then(response => {
-            console.log(response);
-            this.setState({
-                apiResult: response
+            
+            store.dispatch({
+                type: "ADD_TICKETS",
+                payload: {
+                    tickets: response
+                }
             });
+
+            
         });
     }
 
     render(){
-        return (<div>
-            <ul>
-                {this.state.apiResult.map(ticket => {
-                    return <li key={`${ticket.id}`}>{ticket.price}</li>
-                })}
-            </ul>
+        return (<div>            
+                {Object.keys(store.getState().tickets).map(function(key) {
+                    return <TicketItem id={key} item={store.getState().tickets[key]}/> 
+                })}                      
         </div>)
     }
 }

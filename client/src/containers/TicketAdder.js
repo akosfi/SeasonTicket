@@ -11,19 +11,12 @@ class TicketAdder extends React.Component{
         };
     }
     handleSubmit(e){
-
-        alert(this.state.priceValue);
-
         let ticketToSend = {
-            price: this.state.priceValue
+            price: this.state.priceValue,
+            daysOfValidity: this.state.daysOfValidity,
+            occasionNumber: this.state.occasionNumber,
+            businessID: 10
         }
-
-        /*store.dispatch({
-            type: "ADD_TICKET",
-            payload: {
-                
-            }
-        })*/
 
         fetch("https://localhost:44306/api/tickets", {
             method: 'POST',
@@ -31,18 +24,16 @@ class TicketAdder extends React.Component{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({price: 5000, daysOfValidity: 40, isActive: true})
+            body: JSON.stringify(ticketToSend)
         })
         .then(res => res.json())
         .then(res => {
-            console.log("EREDMENY: " + res)
+            console.log("result: " + res)
         })
         .catch(err=>{
-            console.log("ERROR: " + err)
+            console.log("err: " + err)
         });
 
-
-        
         e.preventDefault();
     }
 
@@ -50,8 +41,12 @@ class TicketAdder extends React.Component{
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <span>Price:</span>
+                <span>Price:</span>
                     <input type="text" name="price" onChange={e => this.setState({priceValue: e.target.value})} value={this.state.priceValue}/>
+                    <br/><span>Days of Validity:</span>
+                    <input type="text" name="daysOfValidity" onChange={e => this.setState({daysOfValidity: e.target.value})} value={this.state.daysOfValidity}/>
+                    <br/><span>Number of Occasions:</span>
+                    <input type="text" name="occasionNumber" onChange={e => this.setState({occasionNumber: e.target.value})} value={this.state.occasionNumber}/>
                     <input type="submit" value="Send" />
                 </form>
             </div>

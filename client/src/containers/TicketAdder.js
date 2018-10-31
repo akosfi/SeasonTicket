@@ -1,5 +1,7 @@
 import React from 'react';
 import store from '../store';
+import { Link } from 'react-router-dom';
+
 
 class TicketAdder extends React.Component{
     constructor(props){
@@ -41,7 +43,7 @@ class TicketAdder extends React.Component{
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                <span>Price:</span>
+                    <span>Price:</span>
                     <input type="text" name="price" onChange={e => this.setState({priceValue: e.target.value})} value={this.state.priceValue}/>
                     <br/><span>Days of Validity:</span>
                     <input type="text" name="daysOfValidity" onChange={e => this.setState({daysOfValidity: e.target.value})} value={this.state.daysOfValidity}/>
@@ -49,6 +51,7 @@ class TicketAdder extends React.Component{
                     <input type="text" name="occasionNumber" onChange={e => this.setState({occasionNumber: e.target.value})} value={this.state.occasionNumber}/>
                     <input type="submit" value="Send" />
                 </form>
+                <Link to='/'> -Back </Link>
             </div>
         );
     }

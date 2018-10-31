@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace server.Controllers
 {
@@ -39,7 +40,7 @@ namespace server.Controllers
 
             if (ticket == null)
                 return NotFound("404");
-
+            
             return Ok(ticket);
         }
 

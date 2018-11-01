@@ -7,10 +7,13 @@ class NavigationBar extends React.Component{
 
     }
     
-    responseGoogle = (response) => {
+    onSuccessResponse = (response) => {
         console.log(response);
     }
 
+    onFailureResponse = (response) => {
+        console.log(response);
+    } 
     render(){
         return(
             <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
@@ -23,9 +26,9 @@ class NavigationBar extends React.Component{
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <GoogleLogin
-                                    clientId="869554201067-8jd4ihc99gpqoeu9gpgr7l4jtovi4ugc.apps.googleusercontent.com"
-                                    onSuccess={this.responseGoogle}
-                                    onFailure={this.responseGoogle}
+                                    clientId="139042500047-dj11k38rl5emkkcfmjn45aufs2essjqj.apps.googleusercontent.com"
+                                    onSuccess={this.onSuccessResponse}
+                                    onFailure={this.onFailureResponse}
                                     buttonText="Log In"
                                     className="nav-link"
                                     tag="a"

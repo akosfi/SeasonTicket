@@ -8,9 +8,6 @@ import TicketAdder from './containers/TicketAdder';
 
 import store from './store';
 
-
-  
-
 const render = () => {  
   ReactDOM.render(
     <Provider store={store}>
@@ -18,7 +15,7 @@ const render = () => {
         <div>         
           <Route path="/tickets/add" component={TicketAdder} />          
           <Route exact path="/" component={Home}/>
-
+          
           <Link to="/tickets/add">Bérlet felvétel</Link>
         </div>        
       </Router>

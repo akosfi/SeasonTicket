@@ -2,10 +2,10 @@ import React from 'react';
 import store from '../store';
 
 class TicketItem extends React.Component{
-    constructor(props){
+    constructor(props) {
         super(props);
-
     }
+
     deleteTicketItem(_id){
         //deleete fetch
         store.dispatch({
@@ -16,7 +16,7 @@ class TicketItem extends React.Component{
         });
 
 
-        fetch("https://localhost:44306/api/tickets" + '/' + _id, {
+        fetch("https://localhost:5001/api/tickets" + '/' + _id, {
             method: 'DELETE'
         })
         .then(res => res.json())

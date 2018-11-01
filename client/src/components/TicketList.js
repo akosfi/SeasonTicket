@@ -11,7 +11,7 @@ class TicketList extends React.Component{
         }
     }
     componentWillMount(){
-        fetch("https://localhost:44306/api/tickets")
+        fetch("https://localhost:5001/api/tickets")
         .then(response => response.json())
         .then(response => {
             

@@ -20,7 +20,7 @@ class TicketAdder extends React.Component{
             businessID: 10
         }
 
-        fetch("https://localhost:44306/api/tickets", {
+        fetch("https://localhost:5001/api/tickets", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

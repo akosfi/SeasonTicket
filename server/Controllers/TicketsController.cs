@@ -21,7 +21,6 @@ namespace server.Controllers
         {
             _context = context;
         }
-
         // GET api/tickets
         [HttpGet]
         public IActionResult Get()
@@ -74,6 +73,41 @@ namespace server.Controllers
             return Ok(ticket);
         }
 
+        [HttpGet("check/")]
+        public async Task<IActionResult> Check(int userId, int userTicketId)
+        {
+            Transaction userTicket = await _context.Transactions.SingleOrDefaultAsync(t => t.ID == userTicketId);
+            Ticket isValidTicket = await _context.Tickets.SingleOrDefaultAsync(t => t.ID == userTicket.ticketID);
+
+            //if(!isValidTicket.Business.userID == ownerPersonIDFromSession)
+            //{}
+
+            if (userTicket == null || userTicket.userID != userId || isValidTicket == null)
+            {
+                return Ok("404");
+            }
+            if (isValidTicket.IsOccasional)
+            {
+                if(userTicket.OccasionNumber <= 0)
+                {
+                    return Ok("404");
+                }
+                userTicket.OccasionNumber -= 1;
+                _context.SaveChanges();
+                return Ok("200");
+            }
+            else
+            {
+                DateTime expiryDate = userTicket.RegistrationDate.AddDays(isValidTicket.DaysOfValidity);
+                if(DateTime.Now.Date >= expiryDate)
+                {
+                    return Ok("404");
+                }
+                return Ok("200");
+            }
+        }
+        //https://localhost:44306/api/tickets/check/?userId=3&userTicketID=2
+
         // PUT api/tickets/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, Ticket ticket)
@@ -90,12 +124,6 @@ namespace server.Controllers
 
             await _context.SaveChangesAsync();
             
-            /*
-            t.ID = id;
-            _context.Tickets.Attach(t);
-            _context.Entry(t).Property(s => s.Price).IsModified = true;
-            _context.SaveChanges();
-            */
             return Ok("200");
         }
 

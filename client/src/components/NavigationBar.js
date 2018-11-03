@@ -12,19 +12,20 @@ class NavigationBar extends React.Component{
     onSuccessResponse = (response) => {
         console.log(response);
 
-        fetch(this.serverUrl, {
+        fetch("/api/login", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                tokenId: response.tokenId,
-                googleId: response.googleId
+                "tokenId": response.tokenId,
+                "googleId": response.googleId
             })
           })
-          .then(function (data) {
-            console.log('Request succeeded with JSON response', data);
+          .then(response => response.text())
+          .then(response => {
+            console.log('Request succeeded with JSON response:' +  response + "!");
           })
           .catch(function (error) {
             console.log('Request failed', error);

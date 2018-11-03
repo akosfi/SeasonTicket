@@ -12,10 +12,8 @@ namespace server.Data
     {
         public TicketContext(DbContextOptions<TicketContext> options) : base(options)
         {
-            
         }
 
-        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var cascadeFKs = modelBuilder.Model.GetEntityTypes()

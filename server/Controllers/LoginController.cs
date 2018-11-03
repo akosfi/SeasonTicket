@@ -8,6 +8,7 @@ using server.Data;
 using server.Models;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace server.Controllers
 {
@@ -37,21 +38,41 @@ namespace server.Controllers
 
         // POST api/login
         [HttpPost]
-        public async Task<IActionResult> Post(string tokenId, string googleId)
+        public async Task<IActionResult> Post([FromBody] ValidationDataObject vdo)
         {
+            JObject reponse = VerifyGoogleTokenId(vdo.TokenId);
 
-            //string respons = VerifyGoogleTocenId(tokenId);
+            var googleRecord = await _context.GoogleLogins.Include(g => g.User).SingleOrDefaultAsync(g => g.GoogleID == vdo.GoogleId);
+            
+            if (googleRecord == null)
+            {
+                User newUser = new User { Email = (String)reponse["email"], ProfilePic = (String)reponse["picture"] };
+                await _context.Users.AddAsync(newUser);
 
-            return Ok(tokenId);
+                GoogleLogin newGoogleEntry = new GoogleLogin { GoogleID = vdo.GoogleId, userID = newUser.ID };
+                await _context.GoogleLogins.AddAsync(newGoogleEntry);
+
+                await _context.SaveChangesAsync();
+                return Ok(newUser.ID);
+            }
+            
+            return Ok(googleRecord.User.ID);
+            
         }
 
-        private string VerifyGoogleTocenId(string tokenId)
+        private JObject VerifyGoogleTokenId(string tokenId)
         {
             using (WebClient client = new WebClient())
             {
                 string s = client.DownloadString(GOOGLE_TOKEN_VERIFY_URL + tokenId);
-                return s;
+                return JObject.Parse(s);
             }
         }
+    }
+
+    public class ValidationDataObject
+    {
+        public string TokenId { get; set; }
+        public string GoogleId { get; set; }
     }
 }

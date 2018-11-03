@@ -56,6 +56,7 @@ namespace server
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<TicketContext>();
+                context.ChangeTracker.LazyLoadingEnabled = true;
                 context.Database.Migrate();
             }
 

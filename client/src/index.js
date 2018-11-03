@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import Home from './components/Home';
-import TicketAdder from './containers/TicketAdder';
+import TicketAdder from './components/TicketAdder';
 
 import store from './store';
 
@@ -12,9 +12,9 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <Router>
-        <div>         
-          <Route path="/tickets/add" component={TicketAdder} />          
+        <div>  
           <Route exact path="/" component={Home}/>
+          <Route path="/tickets/add" component={TicketAdder} />
           
           <Link to="/tickets/add">Bérlet felvétel</Link>
         </div>        

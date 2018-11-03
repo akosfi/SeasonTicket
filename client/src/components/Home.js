@@ -14,7 +14,6 @@ class Home extends Component {
     return (
       <div>
         <NavigationBar />
-        <Header />
         <TicketList />
         <Footer />
       </div>

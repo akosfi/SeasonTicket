@@ -26,7 +26,7 @@ namespace server.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_context.Tickets);
+            return Ok(_context.Tickets.Where(t => t.IsActive));
         }
 
         // GET api/tickets/5

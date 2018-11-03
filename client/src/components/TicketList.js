@@ -11,10 +11,9 @@ class TicketList extends React.Component{
         }
     }
     componentWillMount(){
-        fetch("https://localhost:5001/api/tickets")
+        fetch("/api/tickets")
         .then(response => response.json())
-        .then(response => {
-            
+        .then(response => {            
             store.dispatch({
                 type: "ADD_TICKETS",
                 payload: {
@@ -27,11 +26,15 @@ class TicketList extends React.Component{
 
 
     render(){
-        return (<div>            
-                {Object.keys(store.getState().tickets).map(function(key) {
-                    return <TicketItem id={key} item={store.getState().tickets[key]} /> 
-                })}                
-        </div>)
+        return (
+            <article class="container">
+                <div class="row">
+                    {Object.keys(store.getState().tickets).map(function(key) {
+                        return <TicketItem id={key} item={store.getState().tickets[key]} /> 
+                    })}    
+                </div>
+            </article>
+        )
     }
 
 

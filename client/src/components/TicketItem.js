@@ -7,40 +7,41 @@ class TicketItem extends React.Component{
     }
 
     deleteTicketItem(_id){
-        //deleete fetch
-        store.dispatch({
-            type: "DELETE_TICKET",
-            payload: {
-                id: _id
-            }
-        });
-
-
-        fetch("https://localhost:5001/api/tickets" + '/' + _id, {
+        fetch("/api/tickets" + '/' + _id, {
             method: 'DELETE'
         })
         .then(res => res.json())
         .then(res => {
-            console.log("EREDMENY: " + res)
+            store.dispatch({
+                type: "DELETE_TICKET",
+                payload: {
+                    id: _id
+                }
+            });
         })
         .catch(err=>{
             console.log("ERROR: " + err)
         });
 
-        
-        
-        
-        //KEZELNI KELL MAJD A CUCCOST
     }
 
+    renderByTicketType(item){
+        if(item.isOccasional){
+            return <p>{item.occasionNumber} alkalmas</p>
+        }
+        return <p>{item.daysOfValidity} napos</p>
+    }
     render(){
         return(
-            <div>
-                Price: {this.props.item.price}
-                daysOfValidity: {this.props.item.daysOfValidity}
-                occasionNumber: {this.props.item.occasionNumber}
-                isActive: {this.props.item.isActive ? "true" : "false"}
-                <button onClick={()=>this.deleteTicketItem(this.props.id)}>asd</button>
+            <div class="col-3 item">
+                <div class="card">
+                    <img class="card-img-top" src="https://picsum.photos/420/210?image=436" alt="Card image cap"/>
+                    <div class="card-body">
+                        <h5 class="card-title">{this.props.item.name}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{this.props.item.price} Ft</h6>
+                        {this.renderByTicketType(this.props.item)}
+                    </div>
+                </div>
             </div>
         );
     }

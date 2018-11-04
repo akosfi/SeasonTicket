@@ -1,47 +1,43 @@
 import React from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import UserAuthenticator from './UserAuthenticator';
+import store from '../store';
 
 class NavigationBar extends React.Component{
     constructor(props){
         super(props);
-
+        this.state = {
+            firstRender: true
+        };
     }
 
-    serverUrl = "https://localhost:5001/api/login";
-    
-    onSuccessResponse = (response) => {
-        console.log(response);
-
-        fetch("/api/login", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "tokenId": response.tokenId,
-                "googleId": response.googleId
+    componentWillMount(){
+        if(this.state.firstRender){
+            fetch("/api/login/")
+            .then(response => response.json())
+            .then(response => {
+                if(response != "null"){
+                    store.dispatch({
+                        type: "ADD_USER",
+                        payload: {
+                            id: response
+                        }
+                    });
+                }
             })
-          })
-          .then(response => response.text())
-          .then(response => {
-            console.log('Request succeeded with JSON response:' +  response + "!");
-          })
-          .catch(function (error) {
-            console.log('Request failed', error);
-          });        
+            .catch(err => {
+                console.log(err);
+            });            
+            this.setState({firstRender: false});
+        }
     }
 
-    onFailureResponse = (response) => {
-        console.log("onFailureResponse");
-        console.log(response);
+    renderAuthentication(){
+        const loggedInUserId = store.getState().user.id;
+        if(!loggedInUserId){
+            return <UserAuthenticator />
+        }
+        return <p>Logged in. ID: {loggedInUserId}</p>
     }
-
-    onLogout = (response) => {
-        console.log("onLogout");
-        console.log(response);
-    }
-
     render(){
         return(
             <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
@@ -50,31 +46,9 @@ class NavigationBar extends React.Component{
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <GoogleLogin
-                                    clientId="869554201067-8jd4ihc99gpqoeu9gpgr7l4jtovi4ugc.apps.googleusercontent.com"
-                                    onSuccess={this.onSuccessResponse}
-                                    onFailure={this.onFailureResponse}
-                                    buttonText="Log In"
-                                    className="nav-link"
-                                    tag="a"
-                                    type=""
-                                />
-                            </li>
-                            <li class="nav-item">
-                                <GoogleLogout
-                                    onLogoutSuccess={this.onLogout}
-                                    buttonText="Log Out"
-                                    className="nav-link"
-                                    tag="a"
-                                    type=""
-                                />
-                            </li>
-                            
-                        </ul>
-                    </div>
+
+                    {this.renderAuthentication()}                    
+                    
                 </div>
             </nav>
         );

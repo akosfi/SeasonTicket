@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import TicketList from './TicketList';
-import Header from './Header';
-import NavigationBar from './NavigationBar';
-import Footer from './Footer';
+
 
 
 class Home extends Component {
@@ -13,9 +11,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <NavigationBar />
         <TicketList />
-        <Footer />
       </div>
       
     );

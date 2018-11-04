@@ -19,8 +19,7 @@ class TicketList extends React.Component{
                 payload: {
                     tickets: response
                 }
-            });
-            
+            });            
         });
     }
 

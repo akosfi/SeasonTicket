@@ -29,11 +29,12 @@ namespace server.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            if (HttpContext.Session.GetString("userId") != null) {
-                return Ok("200");
+            //return Ok(HttpContext.Session.GetString("userId") + "|aaa");
+            if (HttpContext.Session.Keys.Contains("userId") && !HttpContext.Session.GetString("userId").Equals("")) {
+                return Ok(HttpContext.Session.GetString("userId"));
             }
 
-            return NotFound("404");
+            return Ok("null");
         }
 
         // POST api/login
@@ -53,13 +54,15 @@ namespace server.Controllers
                 await _context.GoogleLogins.AddAsync(newGoogleEntry);
 
                 await _context.SaveChangesAsync();
+                HttpContext.Session.SetString("userId", newUser.ID.ToString());
                 return Ok(newUser.ID);
             }
-            
+
+            HttpContext.Session.SetString("userId", googleRecord.User.ID.ToString());
             return Ok(googleRecord.User.ID);
             
         }
-
+        
         private JObject VerifyGoogleTokenId(string tokenId)
         {
             using (WebClient client = new WebClient())

@@ -5,6 +5,9 @@ import { Provider } from 'react-redux';
 
 import Home from './components/Home';
 import TicketAdder from './components/TicketAdder';
+import NavigationBar from './components/NavigationBar';
+import Footer from './components/Footer';
+
 
 import store from './store';
 
@@ -13,9 +16,12 @@ const render = () => {
     <Provider store={store}>
       <Router>
         <div>  
+          <NavigationBar />
+
           <Route exact path="/" component={Home}/>
-          <Route path="/tickets/add" component={TicketAdder} />
-          
+          <Route path="/tickets/add" component={TicketAdder} />  
+
+          <Footer />
           <Link to="/tickets/add">Bérlet felvétel</Link>
         </div>        
       </Router>

@@ -1,8 +1,16 @@
 const user_inital = {
-    id: 40
+    id: null
 } 
 //amig nincs 
 
 export default function user(state = user_inital, action){
-    return state;
+    switch(action.type){
+        case "ADD_USER":
+            state = action.payload;
+            return state;
+        break;
+        default:
+            return state;
+        break;
+    }
 }

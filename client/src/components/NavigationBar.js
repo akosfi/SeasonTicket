@@ -1,6 +1,8 @@
 import React from 'react';
 import UserAuthenticator from './UserAuthenticator';
 import store from '../store';
+import { addUserAction } from '../actions';
+import { Link } from 'react-router-dom';
 
 class NavigationBar extends React.Component{
     constructor(props){
@@ -16,12 +18,9 @@ class NavigationBar extends React.Component{
             .then(response => response.json())
             .then(response => {
                 if(response != "null"){
-                    store.dispatch({
-                        type: "ADD_USER",
-                        payload: {
-                            id: response
-                        }
-                    });
+                    store.dispatch(
+                        addUserAction(response)
+                    );
                 }
             })
             .catch(err => {
@@ -36,7 +35,12 @@ class NavigationBar extends React.Component{
         if(!loggedInUserId){
             return <UserAuthenticator />
         }
-        return <p>Logged in. ID: {loggedInUserId}</p>
+        return (
+            <div>
+                <p>Logged in. ID: {loggedInUserId}</p>
+                <Link to="/tickets/">Bérleteim</Link>
+            </div>
+        );
     }
     render(){
         return(

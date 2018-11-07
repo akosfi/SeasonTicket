@@ -12,26 +12,13 @@ class TicketList extends React.Component{
             tickets: {}
         }
     }
-    componentWillMount(){
-        fetch("/api/tickets")
-        .then(response => response.json())
-        .then(response => {            
-            store.dispatch({
-                type: "ADD_TICKETS",
-                payload: {
-                    tickets: response
-                }
-            });            
-        });
-    }
-
-
+    
     render(){
         return (
             <article class="container">
                 <div class="row">
-                    {_.map(store.getState().tickets, ticket => {
-                        return <TicketItem id={ticket.id} item={ticket} buyable={store.getState().user.id != null} /> 
+                    {_.map(this.props.source, ticket => {
+                        return <TicketItem id={ticket.id} item={ticket} buyable={this.props.buyable} /> 
                     })}  
                 </div>
             </article>

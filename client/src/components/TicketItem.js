@@ -1,5 +1,6 @@
 import React from 'react';
 import store from '../store';
+import {deleteTicketAction} from '../actions';
 
 class TicketItem extends React.Component{
     constructor(props) {
@@ -14,12 +15,9 @@ class TicketItem extends React.Component{
         })
         .then(res => res.json())
         .then(res => {
-            store.dispatch({
-                type: "DELETE_TICKET",
-                payload: {
-                    id: _id
-                }
-            });
+            store.dispatch(
+                deleteTicketAction(_id)
+            );
         })
         .catch(err=>{
             console.log("ERROR: " + err)
@@ -38,6 +36,11 @@ class TicketItem extends React.Component{
             return <button onClick={() => {this.onItemBought(this.props.item.id)}} type="button" class="btn btn-success">Buy</button>
         }
     }
+    renderPrice(){
+        if(this.props.item.price != undefined){
+            return <h6 class="card-subtitle mb-2 text-muted">{this.props.item.price} Ft</h6>
+        }
+    }
     onItemBought(id){
         fetch("/api/tickets/buy/" + id)
         .then(response => response.json())
@@ -52,7 +55,7 @@ class TicketItem extends React.Component{
                     <img class="card-img-top" src="https://picsum.photos/420/210?image=436" alt="Card image cap"/>
                     <div class="card-body">
                         <h5 class="card-title">{this.props.item.name}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{this.props.item.price} Ft</h6>
+                        {this.renderPrice()}
                         {this.renderByTicketType(this.props.item)}
                         {this.renderBuyButton()}
                     </div>

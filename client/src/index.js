@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 
 
 import store from './store';
+import UserTickets from './components/UserTickets';
 
 const render = () => {  
   ReactDOM.render(
@@ -19,7 +20,8 @@ const render = () => {
           <NavigationBar />
 
           <Route exact path="/" component={Home}/>
-          <Route path="/tickets/add" component={TicketAdder} />  
+          <Route exact path="/tickets" component={UserTickets} />
+          <Route exact path="/tickets/add" component={TicketAdder} />  
 
           <Footer />
           <Link to="/tickets/add">Bérlet felvétel</Link>

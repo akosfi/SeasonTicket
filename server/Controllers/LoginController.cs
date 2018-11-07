@@ -47,7 +47,8 @@ namespace server.Controllers
             
             if (googleRecord == null)
             {
-                User newUser = new User { Email = (String)reponse["email"], ProfilePic = (String)reponse["picture"] };
+                int initialCredits = 50000;
+                User newUser = new User { Email = (String)reponse["email"], ProfilePic = (String)reponse["picture"], Credits = initialCredits };
                 await _context.Users.AddAsync(newUser);
 
                 GoogleLogin newGoogleEntry = new GoogleLogin { GoogleID = vdo.GoogleId, userID = newUser.ID };

@@ -4,6 +4,8 @@ import store from '../store';
 class TicketItem extends React.Component{
     constructor(props) {
         super(props);
+
+        this.onItemBought = this.onItemBought.bind(this);
     }
 
     deleteTicketItem(_id){
@@ -31,6 +33,18 @@ class TicketItem extends React.Component{
         }
         return <p>{item.daysOfValidity} napos</p>
     }
+    renderBuyButton(){
+        if(this.props.buyable){            
+            return <button onClick={() => {this.onItemBought(this.props.item.id)}} type="button" class="btn btn-success">Buy</button>
+        }
+    }
+    onItemBought(id){
+        fetch("/api/tickets/buy/" + id)
+        .then(response => response.json())
+        .then(response => {            
+            console.log("BUY RESPONSE" + response);
+        });
+    }
     render(){
         return(
             <div class="col-3 item">
@@ -40,6 +54,7 @@ class TicketItem extends React.Component{
                         <h5 class="card-title">{this.props.item.name}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{this.props.item.price} Ft</h6>
                         {this.renderByTicketType(this.props.item)}
+                        {this.renderBuyButton()}
                     </div>
                 </div>
             </div>

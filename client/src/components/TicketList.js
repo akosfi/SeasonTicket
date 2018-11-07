@@ -1,6 +1,8 @@
 import React from 'react';
 import store from '../store';
 import TicketItem from './TicketItem';
+import _ from "lodash"
+
 
 class TicketList extends React.Component{
     constructor(props){
@@ -28,9 +30,9 @@ class TicketList extends React.Component{
         return (
             <article class="container">
                 <div class="row">
-                    {Object.keys(store.getState().tickets).map(function(key) {
-                        return <TicketItem id={key} item={store.getState().tickets[key]} /> 
-                    })}    
+                    {_.map(store.getState().tickets, ticket => {
+                        return <TicketItem id={ticket.id} item={ticket} buyable={store.getState().user.id != null} /> 
+                    })}  
                 </div>
             </article>
         )

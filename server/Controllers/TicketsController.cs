@@ -44,22 +44,38 @@ namespace server.Controllers
         }
 
         // GET
-        [HttpGet("{id}/buy")]
+        [HttpGet("buy/{id}")]
         public async Task<IActionResult> BuyTicket(int id)
         {
-            //User id sessionbol lesz?
-            User temporaryUser = _context.Users.First();
-            //------
+            if (!HttpContext.Session.Keys.Contains("userId") || HttpContext.Session.GetString("userId").Equals(""))
+            {
+                return Ok("404");
+            }
+            
+            int userId = Int32.Parse(HttpContext.Session.GetString("userId"));
+            
+            User activeUser = await _context.Users.SingleOrDefaultAsync(u => u.ID == userId);
+            
 
             Ticket ticketToBuy = await _context.Tickets.SingleOrDefaultAsync(m => m.ID == id);
 
             if (ticketToBuy == null)
                 return NotFound("404");
 
+            if(activeUser.Credits < ticketToBuy.Price)
+            {
+                return Ok("404");
+            }
+
             Transaction ticketTransaction = 
-                new Transaction { OccasionNumber = ticketToBuy.OccasionNumber, RegistrationDate = DateTime.Now, ticketID = ticketToBuy.ID, userID = temporaryUser.ID };
+                new Transaction { OccasionNumber = ticketToBuy.OccasionNumber, RegistrationDate = DateTime.Now, ticketID = ticketToBuy.ID, userID = activeUser.ID };
+
+           
 
             await _context.Transactions.AddAsync(ticketTransaction);
+
+            activeUser.Credits -= ticketToBuy.Price;
+
             await _context.SaveChangesAsync();
 
             return Ok("200");

@@ -10,6 +10,7 @@ namespace server.Models
         //public string Address { get; set; }
         public DateTime BirthDate { get; set; }
         public string ProfilePic { get; set; }
+        public int Credits { get; set; }
 
         public GoogleLogin GoogleLogin { get; set; }
         public ICollection<Transaction> Transactions { get; set; }

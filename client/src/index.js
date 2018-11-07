@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import Home from './components/Home';
 import TicketAdder from './components/TicketAdder';
 import NavigationBar from './components/NavigationBar';
+import DetailedTicketView from './components/DetailedTicketView';
 import Footer from './components/Footer';
 
 
@@ -22,6 +23,7 @@ const render = () => {
           <Route exact path="/" component={Home}/>
           <Route exact path="/tickets" component={UserTickets} />
           <Route exact path="/tickets/add" component={TicketAdder} />  
+          <Route exact path="/tickets/:id" component={DetailedTicketView} />
 
           <Footer />
           <Link to="/tickets/add">Bérlet felvétel</Link>

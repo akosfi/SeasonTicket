@@ -22,9 +22,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <TicketList source={store.getState().tickets} buyable={store.getState().user.id != null}/>
-      </div>
-      
+        <TicketList source={store.getState().tickets} type="ALL_TICKET_TO_BUY" buyable={store.getState().user.id != null}/>
+      </div>      
     );
   }
 

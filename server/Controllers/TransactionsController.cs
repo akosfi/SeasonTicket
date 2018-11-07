@@ -22,12 +22,13 @@ namespace server.Controllers
         {
             _context = context;
         }
-        [HttpGet("{userId}")]
-        public IActionResult Get(int userId)
+        [HttpGet]
+        public IActionResult Get()
         {
             List<JObject> ret = new List<JObject>();
             //JObject ret = new JObject();
-            foreach(Transaction t in _context.Transactions.Include(t=>t.Ticket).Where(t => t.userID == userId))
+            int userId = Int32.Parse(HttpContext.Session.GetString("userId"));
+            foreach (Transaction t in _context.Transactions.Include(t => t.Ticket).Where(t => t.userID == userId))
             {
                 JObject tranEntry = new JObject();
                 tranEntry.Add("id", t.ID);
@@ -39,6 +40,29 @@ namespace server.Controllers
                 ret.Add(tranEntry);
             }
             return Ok(ret.ToArray());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+
+            int userId = Int32.Parse(HttpContext.Session.GetString("userId"));
+            JObject ret = new JObject();
+            Transaction transaction = _context.Transactions.Include(t => t.Ticket).Include(t => t.Ticket.Business).SingleOrDefault(t => t.ID == id && t.userID == userId);
+
+            ret.Add("id", transaction.ID);
+            ret.Add("registrationDate", transaction.RegistrationDate);
+            ret.Add("occasionNumber", transaction.OccasionNumber);
+            ret.Add("name", transaction.Ticket.Name);
+            ret.Add("daysOfValidity", transaction.Ticket.DaysOfValidity);
+            ret.Add("isOccasional", transaction.Ticket.IsOccasional);
+            ret.Add("price", transaction.Ticket.Price);
+            ret.Add("businessName", transaction.Ticket.Business.Name);
+
+
+            string makeQRcodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + "https://localhost:44306/tickets/check/" + HttpContext.Session.GetString("userId") + "userTicketId=" + transaction.ID;
+            ret.Add("qrURL", makeQRcodeURL);
+            return Ok(ret);
         }
     }
 }

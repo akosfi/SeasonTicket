@@ -89,13 +89,13 @@ namespace server.Controllers
             return Ok(ticket);
         }
 
-        [HttpGet("check/")]
+        [HttpGet("check/{userId}")]
         public async Task<IActionResult> Check(int userId, int userTicketId)
         {
             Transaction userTicket = await _context.Transactions.SingleOrDefaultAsync(t => t.ID == userTicketId);
             Ticket isValidTicket = await _context.Tickets.SingleOrDefaultAsync(t => t.ID == userTicket.ticketID);
 
-            //if(!isValidTicket.Business.userID == ownerPersonIDFromSession)
+            //if(!isValidTicket.Business.userID == ownerPersonIDFromSession)!!!!!!!!!!!!!
             //{}
 
             if (userTicket == null || userTicket.userID != userId || isValidTicket == null)
@@ -122,7 +122,7 @@ namespace server.Controllers
                 return Ok("200");
             }
         }
-        //https://localhost:44306/api/tickets/check/?userId=3&userTicketID=2
+        //https://localhost:44306/api/tickets/check/3?userTicketID=2
 
         // PUT api/tickets/5
         [HttpPut("{id}")]

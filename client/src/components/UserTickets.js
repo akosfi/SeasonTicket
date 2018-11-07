@@ -9,7 +9,7 @@ class UserTickets extends Component {
         super(props);
     }
     componentWillMount(){
-        fetch("/api/transactions/" + store.getState().user.id)
+        fetch("/api/transactions/")
         .then(response => response.json())
         .then(response => {            
             store.dispatch(
@@ -20,7 +20,7 @@ class UserTickets extends Component {
     render(){
         return (
             <div>
-              <TicketList source={store.getState().userTickets} buyable={store.getState().user.id != null}/>
+              <TicketList source={store.getState().userTickets} type="USER_TICKETS"/>
             </div>
             
           );

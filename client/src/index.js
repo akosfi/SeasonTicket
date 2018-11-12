@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+/* Components Import */
 import Home from './components/Home';
 import TicketAdder from './components/TicketAdder';
 import NavigationBar from './components/NavigationBar';
 import DetailedTicketView from './components/DetailedTicketView';
 import Footer from './components/Footer';
-
+import UserBusinesses from './components/UserBusinesses';
+import UserTickets from './components/UserTickets';
+import BusinessAdder from './components/BusinessAdder';
 
 import store from './store';
-import UserTickets from './components/UserTickets';
 
 const render = () => {  
   ReactDOM.render(
@@ -24,6 +26,8 @@ const render = () => {
           <Route exact path="/tickets" component={UserTickets} />
           <Route exact path="/tickets/add" component={TicketAdder} />  
           <Route exact path="/tickets/:id" component={DetailedTicketView} />
+          <Route exact path="/businesses" component={UserBusinesses} />
+          <Route exact path="/businesses/new" component={BusinessAdder} />
 
           <Footer />
           <Link to="/tickets/add">Bérlet felvétel</Link>
@@ -34,5 +38,4 @@ const render = () => {
   )
 }
 render();
-//EZ NEM IGY FOG MUKODNI HANEM A PROVIDER BASZASSAL
 store.subscribe(render);

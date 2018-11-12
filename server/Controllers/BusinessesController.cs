@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace server.Controllers
 {
@@ -24,13 +25,28 @@ namespace server.Controllers
         // GET api/businesses
         [HttpGet]
         public IActionResult Get()
-        {
+        { 
             return Ok(_context.Businesses);
+        }
+
+        //GET api/business/user
+        [HttpGet("user")]
+        public IActionResult GetForUser()
+        {
+            if (!HttpContext.Session.Keys.Contains("userId") || HttpContext.Session.GetString("userId").Equals(""))
+            {
+                return Ok("404");
+            }
+
+            int userId = Int32.Parse(HttpContext.Session.GetString("userId"));
+
+            var businesses = _context.Businesses.Where(b => b.userID == userId);
+            return Ok(businesses);
         }
 
         // GET api/businesses/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int? id)
+        public async Task<IActionResult> GetById(int? id)
         {
             if (id == null)
                 return NotFound("404");
@@ -47,11 +63,13 @@ namespace server.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Business business)
         {
-            //User id sessionbol lesz?
-            User temporaryUser = _context.Users.First();
-            //------
+            if (!HttpContext.Session.Keys.Contains("userId") || HttpContext.Session.GetString("userId").Equals(""))
+            {
+                return Ok("404");
+            }
+            int userId = Int32.Parse(HttpContext.Session.GetString("userId"));
 
-            business.userID = temporaryUser.ID;
+            business.userID = userId;
             await _context.Businesses.AddAsync(business);
             await _context.SaveChangesAsync();
             return Ok("200");

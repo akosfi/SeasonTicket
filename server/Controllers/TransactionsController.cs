@@ -26,7 +26,6 @@ namespace server.Controllers
         public IActionResult Get()
         {
             List<JObject> ret = new List<JObject>();
-            //JObject ret = new JObject();
             int userId = Int32.Parse(HttpContext.Session.GetString("userId"));
             foreach (Transaction t in _context.Transactions.Include(t => t.Ticket).Where(t => t.userID == userId))
             {
@@ -60,7 +59,7 @@ namespace server.Controllers
             ret.Add("businessName", transaction.Ticket.Business.Name);
 
 
-            string makeQRcodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + "https://localhost:44306/tickets/check/" + HttpContext.Session.GetString("userId") + "userTicketId=" + transaction.ID;
+            string makeQRcodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + "https://localhost:44306/tickets/check/" + HttpContext.Session.GetString("userId") + "?userTicketId=" + transaction.ID;
             ret.Add("qrURL", makeQRcodeURL);
             return Ok(ret);
         }

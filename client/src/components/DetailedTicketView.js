@@ -19,8 +19,29 @@ class DeatiledTicketView extends React.Component{
         });
     }
 
+    renderData(){
+        if(this.state.response != null){
+            return (
+                <div>
+                    <p>{this.state.response.registrationDate}</p>
+                    <p>{this.state.response.occasionNumber}</p>
+                    <p>{this.state.response.name}</p>
+                    <p>{this.state.response.daysOfValidity}</p>
+                    <p>{this.state.response.isOccasional}</p>
+                    <p>{this.state.response.price}</p>
+                    <p>{this.state.response.businessName}</p>
+                    <img src={this.state.response.qrURL}/>
+                </div>
+            );
+        }       
+    }
+
     render(){
-        return <p>{JSON.stringify(this.state.response)}</p>
+        return (
+            <div>
+                {this.renderData()}
+            </div>
+        );
     }
 }
 

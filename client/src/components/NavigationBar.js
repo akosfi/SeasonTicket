@@ -1,8 +1,9 @@
 import React from 'react';
 import UserAuthenticator from './UserAuthenticator';
 import store from '../store';
-import { addUserAction } from '../actions';
+import { addUserAction, removeUserAction } from '../actions';
 import { Link } from 'react-router-dom';
+import { GoogleLogout } from 'react-google-login';
 
 class NavigationBar extends React.Component{
     constructor(props){
@@ -30,6 +31,20 @@ class NavigationBar extends React.Component{
         }
     }
 
+    onLogout = () => {
+        fetch("/api/login/logout/")
+        .then(response => response.json())
+        .then(response => {
+            if(response == "200")
+                store.dispatch(
+                    removeUserAction()
+                );
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
     renderAuthentication(){
         const loggedInUserId = store.getState().user.id;
         if(!loggedInUserId){
@@ -39,6 +54,13 @@ class NavigationBar extends React.Component{
             <div>
                 <p>Logged in. ID: {loggedInUserId}</p>
                 <Link to="/tickets/">Bérleteim</Link>
+                <GoogleLogout
+                    onLogoutSuccess={this.onLogout}
+                    buttonText="Log Out"
+                    className="nav-link"
+                    tag="a"
+                    type=""
+                />
             </div>
         );
     }

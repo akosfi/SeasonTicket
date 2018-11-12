@@ -1,12 +1,15 @@
 const user_inital = {
     id: null
 } 
-//amig nincs 
 
 export default function user(state = user_inital, action){
     switch(action.type){
         case "ADD_USER":
             state = action.payload;
+            return state;
+        break;
+        case "REMOVE_USER":
+            state = user_inital;
             return state;
         break;
         default:

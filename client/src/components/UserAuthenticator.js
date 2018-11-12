@@ -1,4 +1,4 @@
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import store from '../store';
 import React from 'react';
 
@@ -37,10 +37,7 @@ class UserAuthenticator extends React.Component{
         console.log(response);
     }
 
-    onLogout = (response) => {
-        console.log("onLogout");
-        console.log(response);
-    }
+    
 
     render(){
         return (
@@ -52,15 +49,6 @@ class UserAuthenticator extends React.Component{
                             onSuccess={this.onSuccessResponse}
                             onFailure={this.onFailureResponse}
                             buttonText="Log In"
-                            className="nav-link"
-                            tag="a"
-                            type=""
-                        />
-                    </li>
-                    <li class="nav-item">
-                        <GoogleLogout
-                            onLogoutSuccess={this.onLogout}
-                            buttonText="Log Out"
                             className="nav-link"
                             tag="a"
                             type=""

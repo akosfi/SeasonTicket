@@ -44,7 +44,7 @@ namespace server.Controllers
             JObject reponse = VerifyGoogleTokenId(vdo.TokenId);
 
             var googleRecord = await _context.GoogleLogins.Include(g => g.User).SingleOrDefaultAsync(g => g.GoogleID == vdo.GoogleId);
-            
+
             if (googleRecord == null)
             {
                 int initialCredits = 50000;
@@ -61,9 +61,20 @@ namespace server.Controllers
 
             HttpContext.Session.SetString("userId", googleRecord.User.ID.ToString());
             return Ok(googleRecord.User.ID);
-            
+
         }
-        
+
+        [HttpGet("logout")]
+        public IActionResult Logout()
+        {
+            if (!HttpContext.Session.Keys.Contains("userId") || HttpContext.Session.GetString("userId").Equals(""))
+            {
+                return Ok("404");
+            }
+            HttpContext.Session.SetString("userId", "");
+            return Ok("200");
+        }
+
         private JObject VerifyGoogleTokenId(string tokenId)
         {
             using (WebClient client = new WebClient())

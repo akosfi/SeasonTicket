@@ -10,7 +10,8 @@ class BusinessAdder extends React.Component{
         this.state = {
             name: "",
             email: "",
-            redirect: false
+            redirect: false,
+            errors: []
         }
     }
 
@@ -20,7 +21,26 @@ class BusinessAdder extends React.Component{
         }
     }
 
+    validateInput(){
+        let errors = [];
+        if(this.state.name == "")
+            errors.push("Name field can not be empty!");
+        if(this.state.email == "")
+            errors.push("Email field can not be empty!");
+        
+        this.setState({
+            errors: errors
+        });
+
+        if(errors.length > 0) return true;
+        return false;
+    }
+
     handleSubmit(e){
+        e.preventDefault();
+        if(this.validateInput())
+            return true;
+
         let businessToSend = {
             name: this.state.name,
             email: this.state.email,
@@ -43,7 +63,6 @@ class BusinessAdder extends React.Component{
             console.log("err: " + err)
         });
 
-        e.preventDefault();
     }
 
     render(){
@@ -52,6 +71,11 @@ class BusinessAdder extends React.Component{
                 {this.renderRedirect()}
 
                 <div className="jumbotron">
+                    <ul>
+                        {this.state.errors.map(e => {
+                            return <li>{e}</li>
+                        })}
+                    </ul>
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label>Name:</label>

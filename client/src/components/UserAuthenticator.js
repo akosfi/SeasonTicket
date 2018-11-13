@@ -45,7 +45,9 @@ class UserAuthenticator extends React.Component{
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <GoogleLogin
-                            clientId="403345559269-hfu9slouel589rniqd27bnongb2nkk43.apps.googleusercontent.com"
+                        
+                            //prod client id : 403345559269-hfu9slouel589rniqd27bnongb2nkk43.apps.googleusercontent.com
+                            clientId="869554201067-8jd4ihc99gpqoeu9gpgr7l4jtovi4ugc.apps.googleusercontent.com"
                             onSuccess={this.onSuccessResponse}
                             onFailure={this.onFailureResponse}
                             buttonText="Log In"

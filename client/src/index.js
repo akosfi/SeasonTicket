@@ -30,7 +30,6 @@ const render = () => {
           <Route exact path="/businesses/new" component={BusinessAdder} />
 
           <Footer />
-          <Link to="/tickets/add">Bérlet felvétel</Link>
         </div>        
       </Router>
     </Provider>,

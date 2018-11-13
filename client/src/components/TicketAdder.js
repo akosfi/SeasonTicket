@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-
+import _ from "lodash";
+import store from '../store';
+import {addTicketAction} from '../actions'
 
 class TicketAdder extends React.Component{
     constructor(props){
@@ -8,26 +10,30 @@ class TicketAdder extends React.Component{
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleRadioChange = this.handleRadioChange.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
         this.state = {
             name: "",
             price: "",
             validityValue: "",
             isOccasional: false,
-            redirect: false
+            redirect: false,
+            selectedBusiness: store.getState().businesses[Object.keys(store.getState().businesses)[0]].id
         };
     }
     handleSubmit(e){
+        
         let ticketToSend = {
             name: this.state.name,
             price: this.state.price,
             isOccasional: this.state.isOccasional,
-            businessID: 10,
+            businessID: this.state.selectedBusiness,
             isActive: "true"
         }
         this.state.isOccasional ? 
             ticketToSend.occasionNumber = this.state.validityValue : 
             ticketToSend.daysOfValidity = this.state.validityValue; 
 
+            
         fetch("/api/tickets", {
             method: 'POST',
             headers: {
@@ -38,8 +44,11 @@ class TicketAdder extends React.Component{
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res);
+            store.dispatch(
+                addTicketAction(res)
+            );
             this.setState({ redirect: true });
+            
         })
         .catch(err=>{
             console.log("err: " + err)
@@ -70,10 +79,16 @@ class TicketAdder extends React.Component{
     handleRadioChange(e){
         this.setState({isOccasional: e.target.value});
     }
+    handleSelectChange(e){
+        if(e.target.value == this.state.selectedBusiness) return;
 
+        this.setState({
+            selectedBusiness: e.target.value
+        });
+    }
     renderRedirect = () => {
         if (this.state.redirect) {
-          return <Redirect to='/' />
+          return <Redirect to='/businesses' />
         }
     }
     render(){
@@ -82,6 +97,11 @@ class TicketAdder extends React.Component{
                 {this.renderRedirect()}
                 <div className="jumbotron">
                     <form onSubmit={this.handleSubmit}>
+                        <select name="businessID" onChange={this.handleSelectChange} value={this.state.selectedBusiness} >
+                            {_.map(store.getState().businesses, business => {
+                                return <option value={business.id} >{business.name}</option>
+                            })} 
+                        </select>
                         <div className="form-group">
                             <label>Name:</label>
                             <input className="form-control" type="text" name="name" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/>
@@ -100,7 +120,7 @@ class TicketAdder extends React.Component{
                         </div>
                         <input type="submit" value="Send" />
                     </form>
-                    <Link to='/'> -Back </Link>
+                    <Link to='/businesses'> -Back </Link>
                 </div>
             </div>
             

@@ -1,4 +1,4 @@
-import {ADD_USER, DELETE_TICKET, ADD_TICKETS, ADD_USER_TICKETS, REMOVE_USER, ADD_USER_BUSINESSES} from './action-types';
+import {ADD_USER, DELETE_TICKET, ADD_TICKETS, ADD_USER_TICKETS, REMOVE_USER, ADD_USER_BUSINESSES, ADD_TICKET} from './action-types';
 
 export const addUserAction = (id) => ({
     type: ADD_USER,
@@ -21,7 +21,12 @@ export const addTicketsAction = (tickets) => ({
         tickets: tickets
     }
 });
-
+export const addTicketAction = (ticket) => ({
+    type: ADD_TICKET,
+    payload: {
+        ticket: ticket
+    }
+});
 export const addUserTicketsAction = (tickets) => ({
     type: ADD_USER_TICKETS,
     payload: {

@@ -10,6 +10,10 @@ export default function tickets(state = {}, action){
             
             return state;
         break;
+        case "ADD_TICKET":
+            state[action.payload.ticket.id] = action.payload.ticket;
+            return state;
+        break;
         case "DELETE_TICKET":
             delete state[action.payload.id];
             return state;

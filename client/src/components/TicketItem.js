@@ -33,11 +33,11 @@ class TicketItem extends React.Component{
     }
     renderBuyButton(){
         if(this.props.buyable){            
-            return <button onClick={() => {this.onItemBought(this.props.item.id)}} type="button" class="btn btn-success">Buy</button>
+            return <a href="#" onClick={() => {this.onItemBought(this.props.item.id)}} class="card-link">Buy</a>
         }
     }
     renderPrice(){
-        if(this.props.item.price != undefined){
+        if(this.props.item.price !== undefined){
             return <h6 class="card-subtitle mb-2 text-muted">{this.props.item.price} Ft</h6>
         }
     }
@@ -50,13 +50,17 @@ class TicketItem extends React.Component{
     }
     render(){
         return(
-            <div class="col-3 item">
+            <div class="col item">
                 <div class="card">
-                    <img class="card-img-top" src="https://picsum.photos/420/210?image=436" alt="Card image cap"/>
+                    <img class="card-img-top" src={"https://picsum.photos/420/210?image=" + this.props.item.image} alt="Card image cap"></img>
                     <div class="card-body">
-                        <h5 class="card-title">{this.props.item.name}</h5>
-                        {this.renderPrice()}
-                        {this.renderByTicketType(this.props.item)}
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">
+                            {this.renderByTicketType(this.props.item)}
+                            {this.renderPrice()}
+                        </p>
+                        <a href="#" class="card-link">Another link</a>
                         {this.renderBuyButton()}
                     </div>
                 </div>

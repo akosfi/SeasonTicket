@@ -23,13 +23,13 @@ class DeatiledTicketView extends React.Component{
         if(this.state.response != null){
             return (
                 <div>
-                    <p>{this.state.response.registrationDate}</p>
-                    <p>{this.state.response.occasionNumber}</p>
-                    <p>{this.state.response.name}</p>
-                    <p>{this.state.response.daysOfValidity}</p>
-                    <p>{this.state.response.isOccasional}</p>
-                    <p>{this.state.response.price}</p>
-                    <p>{this.state.response.businessName}</p>
+                    <p>Name: {this.state.response.name}</p>
+                    <p>Registraion Date: {this.state.response.registrationDate}</p>
+                    <p>Occasion Number: {this.state.response.occasionNumber}</p>
+                    <p>Days of Validity: {this.state.response.daysOfValidity}</p>
+                    <p>Is Occasional?: {this.state.response.isOccasional}</p>
+                    <p>Price: {this.state.response.price}</p>
+                    <p>Business Name: {this.state.response.businessName}</p>
                     <img src={this.state.response.qrURL}/>
                 </div>
             );

@@ -92,16 +92,26 @@ namespace server.Controllers
         [HttpGet("check/{userId}")]
         public async Task<IActionResult> Check(int userId, int userTicketId)
         {
+            
             Transaction userTicket = await _context.Transactions.SingleOrDefaultAsync(t => t.ID == userTicketId);
-            Ticket isValidTicket = await _context.Tickets.SingleOrDefaultAsync(t => t.ID == userTicket.ticketID);
-
-            //if(!isValidTicket.Business.userID == ownerPersonIDFromSession)!!!!!!!!!!!!!
-            //{}
-
+            Ticket isValidTicket = await _context.Tickets.Include(t => t.Business).SingleOrDefaultAsync(t => t.ID == userTicket.ticketID);
+           
+            if (!HttpContext.Session.Keys.Contains("userId") || HttpContext.Session.GetString("userId").Equals(""))
+            {
+                return Ok("404");
+            }
+            
+            
+            if (isValidTicket.Business.userID != Int32.Parse(HttpContext.Session.GetString("userId")))
+            {
+                return Ok("404");
+            }
+            
             if (userTicket == null || userTicket.userID != userId || isValidTicket == null)
             {
                 return Ok("404");
             }
+            
             if (isValidTicket.IsOccasional)
             {
                 if(userTicket.OccasionNumber <= 0)

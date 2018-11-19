@@ -17,22 +17,24 @@ class TicketList extends React.Component {
     renderTicketItemByType(TYPE, ticket){
         switch (TYPE) {
             case "ALL_TICKET_TO_BUY":
+                console.log("swithc");
                 return <TicketItem id={ticket.id} item={ticket} buyable={this.props.buyable} />;
+            break;
             case "USER_TICKETS":
-            default:
                 return <TicketItemUser id={ticket.id} item={ticket}></TicketItemUser>;
+            break;
+            
+                
         }
     }
     render(){
         return (
             <article class="container">
                 <div class="row">
-                    <div class="pt-3 pb-3 owl-carousel owl-theme">
-                        {_.map(this.props.source, ticket => {
-                            ticket.image = Math.round(Math.random()*400+112);          
-                            return this.renderTicketItemByType(this.props.type, ticket);                       
-                        })}
-                    </div>
+                    {_.map(this.props.source, ticket => {
+                        ticket.image = Math.round(Math.random()*400+112);          
+                        return this.renderTicketItemByType(this.props.type, ticket);                       
+                    })}
                 </div>
             </article>
         )

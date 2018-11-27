@@ -5,3 +5,4 @@ export const ADD_TICKETS = "ADD_TICKETS";
 export const ADD_TICKET = "ADD_TICKET";
 export const REMOVE_USER = "REMOVE_USER";
 export const ADD_USER_BUSINESSES = "ADD_USER_BUSINESSES";
+export const CLEAR_TICKETS = "CLEAR_TICKETS";

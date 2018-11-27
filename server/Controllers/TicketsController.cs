@@ -89,6 +89,20 @@ namespace server.Controllers
             return Ok(ticket);
         }
 
+
+        [HttpGet("filter/")]
+        public IActionResult Filter(string name, int? priceMin, int? priceMax, bool? isOccasional)
+        {
+            IQueryable<Ticket> result = _context.Tickets;
+
+            if (name != "" && name != null) result = result.Where(t => t.Name.Contains(name));
+            if (priceMin != null) result = result.Where(t => t.Price >= priceMin);
+            if (priceMax != null) result = result.Where(t => t.Price <= priceMax);
+            if (isOccasional != null) result = result.Where(t => t.IsOccasional == isOccasional);
+
+
+            return Ok(result);
+        }
         [HttpGet("check/{userId}")]
         public async Task<IActionResult> Check(int userId, int userTicketId)
         {

@@ -69,7 +69,7 @@ class NavigationBar extends React.Component{
         return(
             <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
                 <div class="container">
-                    <a class="navbar-brand" href="#">Bérlet vásárlás</a>
+                    <a class="navbar-brand" href="/">Bérlet vásárlás</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>

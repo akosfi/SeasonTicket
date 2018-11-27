@@ -7,6 +7,7 @@ class TicketItem extends React.Component{
         super(props);
 
         this.onItemBought = this.onItemBought.bind(this);
+        console.log("item");
     }
 
     deleteTicketItem(_id){

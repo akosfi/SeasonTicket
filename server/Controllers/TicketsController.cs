@@ -89,19 +89,45 @@ namespace server.Controllers
             return Ok(ticket);
         }
 
+
+        [HttpGet("filter/")]
+        public IActionResult Filter(string name, int? priceMin, int? priceMax, bool? isOccasional, string category)
+        {
+            IQueryable<Ticket> result = _context.Tickets;
+            
+
+            if (name != "" && name != null) result = result.Where(t => t.Name.Contains(name));
+            if (priceMin != null) result = result.Where(t => t.Price >= priceMin);
+            if (priceMax != null) result = result.Where(t => t.Price <= priceMax);
+            if (isOccasional != null) result = result.Where(t => t.IsOccasional == isOccasional);
+            if (category != "" && category != null) result = result.Where(t => t.Category == category);
+
+
+            return Ok(result);
+        }
         [HttpGet("check/{userId}")]
         public async Task<IActionResult> Check(int userId, int userTicketId)
         {
+            
             Transaction userTicket = await _context.Transactions.SingleOrDefaultAsync(t => t.ID == userTicketId);
-            Ticket isValidTicket = await _context.Tickets.SingleOrDefaultAsync(t => t.ID == userTicket.ticketID);
-
-            //if(!isValidTicket.Business.userID == ownerPersonIDFromSession)!!!!!!!!!!!!!
-            //{}
-
+            Ticket isValidTicket = await _context.Tickets.Include(t => t.Business).SingleOrDefaultAsync(t => t.ID == userTicket.ticketID);
+           
+            if (!HttpContext.Session.Keys.Contains("userId") || HttpContext.Session.GetString("userId").Equals(""))
+            {
+                return Ok("404");
+            }
+            
+            
+            if (isValidTicket.Business.userID != Int32.Parse(HttpContext.Session.GetString("userId")))
+            {
+                return Ok("404");
+            }
+            
             if (userTicket == null || userTicket.userID != userId || isValidTicket == null)
             {
                 return Ok("404");
             }
+            
             if (isValidTicket.IsOccasional)
             {
                 if(userTicket.OccasionNumber <= 0)

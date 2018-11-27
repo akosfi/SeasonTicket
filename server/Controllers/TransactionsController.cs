@@ -59,7 +59,7 @@ namespace server.Controllers
             ret.Add("businessName", transaction.Ticket.Business.Name);
 
 
-            string makeQRcodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + "https://localhost:44306/tickets/check/" + HttpContext.Session.GetString("userId") + "?userTicketId=" + transaction.ID;
+            string makeQRcodeURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + "https://seasonticket.azurewebsites.net/api/tickets/check/" + HttpContext.Session.GetString("userId") + "?userTicketId=" + transaction.ID;
             ret.Add("qrURL", makeQRcodeURL);
             return Ok(ret);
         }

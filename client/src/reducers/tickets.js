@@ -18,6 +18,10 @@ export default function tickets(state = {}, action){
             delete state[action.payload.id];
             return state;
         break;
+        case "CLEAR_TICKETS":
+            state = {};
+            return state;
+        break;
     }
     return state;
 }

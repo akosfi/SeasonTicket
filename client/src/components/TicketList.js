@@ -14,8 +14,10 @@ class TicketList extends React.Component {
             qName: "",
             qMinPrice: "",
             qMaxPrice: "",
-            qIsOccasional: ""
+            qIsOccasional: "",
+            qCategory: "food"
         }
+        this.onCategoryChange = this.onCategoryChange.bind(this);
         this.renderTicketItemByType = this.renderTicketItemByType.bind(this);
         this.onFilterChange = this.onFilterChange.bind(this);
     }
@@ -30,27 +32,29 @@ class TicketList extends React.Component {
         }
     }
     filterTickets(){
-
+        fetch("/api/tickets/filter/?name=" + this.state.qName
+                                    + "&priceMin=" + this.state.qMinPrice
+                                    + "&priceMax=" + this.state.qMaxPrice          
+                                    + "&isOccasional=" + this.state.qIsOccasional
+                                    + "&category=" + this.state.qCategory)
+            .then(response => response.json())
+            .then(response => {            
+                store.dispatch(clearTicketsAction());
+                store.dispatch(addTicketsAction(response));   
+            });
     }
     onFilterChange(e){
         if(e.target.name == "qIsOccasional")
             e.target.value = e.target.checked;
         
         this.setState({[e.target.name]:  e.target.checked || e.target.value}, ()=>{
-            fetch("/api/tickets/filter/?name=" + this.state.qName
-                                    + "&priceMin=" + this.state.qMinPrice
-                                    + "&priceMax=" + this.state.qMaxPrice          
-                                    + "&isOccasional=" + this.state.qIsOccasional)
-            .then(response => response.json())
-            .then(response => {            
-                //console.log(JSON.stringify(response, null, 4));
-                store.dispatch(clearTicketsAction());
-                store.dispatch(addTicketsAction(response));
-                /*store.dispatch(
-                    addUserTicketsAction(response)                
-                );   */     
-            });
+            this.filterTickets();
         });
+    }
+    onCategoryChange(e){
+        this.setState({qCategory: e.target.value}, () => {
+            this.filterTickets();
+        })
     }
     renderSearch(){
         if(this.props.type == "ALL_TICKET_TO_BUY"){
@@ -60,6 +64,12 @@ class TicketList extends React.Component {
                     <input onChange={this.onFilterChange} type="text" name="qMinPrice" placeholder="Minimum Price" value={this.state.qMinPrice} />
                     <input onChange={this.onFilterChange} type="text" name="qMaxPrice" placeholder="Maxiumum Price" value={this.state.qMaxPrice} />
                     <input onChange={this.onFilterChange} type="checkBox" name="qIsOccasional" value={this.state.qIsOccasional} />
+                    <select onChange={this.onCategoryChange} value={this.state.qCategory} > 
+                        <option value="food">Food</option>
+                        <option value="dance">Dance</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="a">Majd bövitjük...</option>
+                    </select>
                 </div>
             );
         }

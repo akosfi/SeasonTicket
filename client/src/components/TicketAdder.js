@@ -16,6 +16,7 @@ class TicketAdder extends React.Component{
             price: "",
             validityValue: "",
             isOccasional: null,
+            category: "food",
             redirect: false,
             errors: [],
             selectedBusiness: store.getState().businesses[Object.keys(store.getState().businesses)[0]].id
@@ -49,6 +50,7 @@ class TicketAdder extends React.Component{
             name: this.state.name,
             price: this.state.price,
             isOccasional: this.state.isOccasional,
+            category: this.state.category,
             businessID: this.state.selectedBusiness,
             isActive: "true"
         }
@@ -129,6 +131,12 @@ class TicketAdder extends React.Component{
                             {_.map(store.getState().businesses, business => {
                                 return <option value={business.id} >{business.name}</option>
                             })} 
+                        </select>
+                        <select value={this.state.category} onChange={(e) => this.setState({category: e.target.value})}> 
+                            <option value="food">Food</option>
+                            <option value="dance">Dance</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="a">Majd bövitjük...</option>
                         </select>
                         <div className="form-group">
                             <label>Name:</label>

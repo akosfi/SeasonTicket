@@ -28,13 +28,13 @@ class TicketItem extends React.Component{
 
     renderByTicketType(item){
         if(item.isOccasional){
-            return <p>{item.occasionNumber} alkalmas</p>
+            return <h6>{item.occasionNumber} alkalmas</h6>;
         }
-        return <p>{item.daysOfValidity} napos</p>
+        return <h6>{item.daysOfValidity} napos</h6>;
     }
     renderBuyButton(){
         if(this.props.buyable){            
-            return <a href="#" onClick={() => {this.onItemBought(this.props.item.id)}} class="card-link">Buy</a>
+            return <a href="#" onClick={() => {this.onItemBought(this.props.item.id)}} class="card-link">Vásárlás</a>
         }
     }
     renderPrice(){
@@ -51,17 +51,16 @@ class TicketItem extends React.Component{
     }
     render(){
         return(
-            <div class="col item">
+            <div class="col-sm item">
                 <div class="card">
-                    <img class="card-img-top" src={"https://picsum.photos/420/210?image=" + this.props.item.image} alt="Card image cap"></img>
+                    <img class="card-img-top" src={"https://picsum.photos/420/210?image=" + this.props.item.image} alt="Ticket ilustration"></img>
+                    <div class="card-cat-overlay">
+                        <span class="badge badge-primary">{this.props.item.category}</span>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">
-                            {this.renderByTicketType(this.props.item)}
-                            {this.renderPrice()}
-                        </p>
-                        <a href="#" class="card-link">Another link</a>
+                        <h5 class="card-title">{this.props.item.name}</h5>
+                        {this.renderByTicketType(this.props.item)}
+                        {this.renderPrice()}
                         {this.renderBuyButton()}
                     </div>
                 </div>

@@ -27,11 +27,14 @@ namespace server.Controllers
 
         // GET api/login
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             //return Ok(HttpContext.Session.GetString("userId") + "|aaa");
             if (HttpContext.Session.Keys.Contains("userId") && !HttpContext.Session.GetString("userId").Equals("")) {
-                return Ok(HttpContext.Session.GetString("userId"));
+                int userId = Int32.Parse(HttpContext.Session.GetString("userId"));
+                User activeUser = await _context.Users.SingleOrDefaultAsync(u => u.ID == userId);
+                //return Ok(HttpContext.Session.GetString("userId"));
+                return Ok(activeUser);
             }
 
             return Ok("null");
@@ -48,6 +51,7 @@ namespace server.Controllers
             if (googleRecord == null)
             {
                 int initialCredits = 50000;
+                //Fullname = (String)reponse["name"],
                 User newUser = new User { Email = (String)reponse["email"], ProfilePic = (String)reponse["picture"], Credits = initialCredits };
                 await _context.Users.AddAsync(newUser);
 

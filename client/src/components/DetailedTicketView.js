@@ -22,15 +22,69 @@ class DeatiledTicketView extends React.Component{
     renderData(){
         if(this.state.response != null){
             return (
-                <div>
-                    <p>Name: {this.state.response.name}</p>
-                    <p>Registraion Date: {this.state.response.registrationDate}</p>
-                    <p>Occasion Number: {this.state.response.occasionNumber}</p>
-                    <p>Days of Validity: {this.state.response.daysOfValidity}</p>
-                    <p>Is Occasional?: {this.state.response.isOccasional}</p>
-                    <p>Price: {this.state.response.price}</p>
-                    <p>Business Name: {this.state.response.businessName}</p>
-                    <img src={this.state.response.qrURL}/>
+                <div class="card">
+                    <img class="card-img-top" src={"https://picsum.photos/420/210?image=" + this.state.response.id} alt="Card cap" />
+                    <div class="card-cat-overlay">
+                        <span class="badge badge-primary">{this.state.response.category}</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{this.state.response.name}</h5>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Registraion Date:</span>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">{this.state.response.registrationDate}</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Occasion Number:</span>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">{this.state.response.occasionNumber}</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Days of Validity:</span>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">{this.state.response.daysOfValidity}</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Is Occasional:</span>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">{this.state.response.isOccasional}</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Price:</span>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">{this.state.response.price} Ft</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Business Name:</span>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">{this.state.response.businessName}</span>
+                            </div>
+                        </div>
+                        
+                        <img class="rounded mx-auto d-block" width="200px" src={this.state.response.qrURL}/>
+                    </div>
                 </div>
             );
         }       
@@ -38,8 +92,14 @@ class DeatiledTicketView extends React.Component{
 
     render(){
         return (
-            <div>
-                {this.renderData()}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        {this.renderData()}
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
             </div>
         );
     }

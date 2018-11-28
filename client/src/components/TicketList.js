@@ -57,19 +57,34 @@ class TicketList extends React.Component {
         })
     }
     renderSearch(){
-        if(this.props.type == "ALL_TICKET_TO_BUY"){
+        if (this.props.type == "ALL_TICKET_TO_BUY") {
             return (
-                <div>
-                    <input onChange={this.onFilterChange} type="text" name="qName" placeholder="Name" value={this.state.qName} />
-                    <input onChange={this.onFilterChange} type="text" name="qMinPrice" placeholder="Minimum Price" value={this.state.qMinPrice} />
-                    <input onChange={this.onFilterChange} type="text" name="qMaxPrice" placeholder="Maxiumum Price" value={this.state.qMaxPrice} />
-                    <input onChange={this.onFilterChange} type="checkBox" name="qIsOccasional" value={this.state.qIsOccasional} />
-                    <select onChange={this.onCategoryChange} value={this.state.qCategory} > 
-                        <option value="food">Food</option>
-                        <option value="dance">Dance</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="a">Majd bövitjük...</option>
-                    </select>
+                <div class="jumbotron">
+                    <h4>Bérletek szűrése</h4>
+                    <hr class="my-4"></hr>
+                    <div class="row">
+                        <div class="col-sm"> 
+                            <input onChange={this.onFilterChange} type="text" name="qName" class="form-control" placeholder="Name" value={this.state.qName} />
+                        </div>
+                        <div class="col-sm">
+                            <input onChange={this.onFilterChange} type="text" name="qMinPrice" class="form-control" placeholder="Minimum Price" value={this.state.qMinPrice} />
+                        </div>
+                        <div class="col-sm">
+                            <input onChange={this.onFilterChange} type="text" name="qMaxPrice" class="form-control" placeholder="Maxiumum Price" value={this.state.qMaxPrice} />
+                        </div>
+                        <div class="col-sm">
+                            <input onChange={this.onFilterChange} type="checkbox" name="qIsOccasional" id="isOccasionalCheckbox" class="form-check-input" value={this.state.qIsOccasional} />
+                            <label class="form-check-label" for="isOccasionalCheckbox">Alkalmankénti bérlet</label>
+                        </div>
+                        <div class="col-sm">
+                            <select onChange={this.onCategoryChange} value={this.state.qCategory} class="form-control" > 
+                                <option value="food">Food</option>
+                                <option value="dance">Dance</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="a">Majd bövitjük...</option>
+                            </select>
+                        </div>
+                    </div>                    
                 </div>
             );
         }
@@ -80,7 +95,7 @@ class TicketList extends React.Component {
                 { this.renderSearch() }
                 <div class="row">
                     {_.map(this.props.source, ticket => {
-                        ticket.image = Math.round(Math.random()*400+112);          
+                        ticket.image = ticket.id;//Math.round(Math.random()*400+112);          
                         return this.renderTicketItemByType(this.props.type, ticket);                       
                     })}
                 </div>

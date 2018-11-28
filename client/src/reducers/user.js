@@ -5,7 +5,7 @@ const user_inital = {
 export default function user(state = user_inital, action){
     switch(action.type){
         case "ADD_USER":
-            state = action.payload;
+            state = action.payload.user;
             return state;
         break;
         case "REMOVE_USER":

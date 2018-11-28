@@ -1,9 +1,9 @@
 import {ADD_USER, DELETE_TICKET, ADD_TICKETS, ADD_USER_TICKETS, REMOVE_USER, ADD_USER_BUSINESSES, ADD_TICKET, CLEAR_TICKETS} from './action-types';
 
-export const addUserAction = (id) => ({
+export const addUserAction = (user) => ({
     type: ADD_USER,
     payload: {
-        id
+        user: user
     }
 });
 

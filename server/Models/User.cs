@@ -8,6 +8,7 @@ namespace server.Models
         public int ID { get; set; }
         public string Email { get; set; }
         //public string Address { get; set; }
+        //public string Fullname { get; set; }
         public DateTime BirthDate { get; set; }
         public string ProfilePic { get; set; }
         public int Credits { get; set; }

@@ -23,7 +23,7 @@ class UserAuthenticator extends React.Component{
             store.dispatch({
                 type: "ADD_USER",
                 payload: {
-                    id: response
+                    user: response
                 }
             });
           })
@@ -50,7 +50,7 @@ class UserAuthenticator extends React.Component{
                             clientId="869554201067-8jd4ihc99gpqoeu9gpgr7l4jtovi4ugc.apps.googleusercontent.com"
                             onSuccess={this.onSuccessResponse}
                             onFailure={this.onFailureResponse}
-                            buttonText="Log In"
+                            buttonText="Bejelentkezés"
                             className="nav-link"
                             tag="a"
                             type=""

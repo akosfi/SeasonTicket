@@ -26,7 +26,7 @@ class NavigationBar extends React.Component{
             })
             .catch(err => {
                 console.log(err);
-            });            
+            });
             this.setState({firstRender: false});
         }
     }
@@ -45,37 +45,69 @@ class NavigationBar extends React.Component{
         });
     }
 
-    renderAuthentication(){
+    renderMenu() {
         const loggedInUserId = store.getState().user.id;
-        if(!loggedInUserId){
+        if (loggedInUserId) {
+            return (
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <Link to="/tickets/" className="nav-link">Bérleteim</Link>
+                    </li>
+                    <li class="nav-item">
+                        <Link to="/businesses" className="nav-link">Vállalkozásaim</Link>
+                    </li>
+                    <li class="nav-item">
+                        <GoogleLogout
+                            onLogoutSuccess={this.onLogout}
+                            buttonText="Kijelentkezés"
+                            className="nav-link"
+                            tag="a"
+                            type=""
+                        />
+                    </li>
+                </ul>
+            );
+        }
+    }
+
+    renderAuthentication(){
+        const loggedInUser = store.getState().user;
+        if (!loggedInUser.id) {
             return <UserAuthenticator />
         }
+        console.log(loggedInUser);
         return (
             <div>
-                <p>Logged in. ID: {loggedInUserId}</p>
-                <Link to="/tickets/">Bérleteim</Link>
-                <Link to="/businesses">Vállalkozásaim</Link>
-                <GoogleLogout
-                    onLogoutSuccess={this.onLogout}
-                    buttonText="Log Out"
-                    className="nav-link"
-                    tag="a"
-                    type=""
-                />
+                <div class="nav-profil-name">
+                    <i class="fas fa-user"></i> {loggedInUser.email}
+                </div>
+                <div class="nav-profil-image text-center">
+                    <img src={loggedInUser.profilePic} class="rounded" alt="Profil" />
+                </div>
             </div>
         );
     }
+
     render(){
         return(
-            <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <nav class="navbar navbar-expand-lg navbar-dark navbar-custom" data-spy="affix" data-offset-top="40">
                 <div class="container">
-                    <a class="navbar-brand" href="/">Bérlet vásárlás</a>
+                    <a class="navbar-brand" href="/">
+                        <img src="/assets/image/logo.png" height="80" class="d-inline-block align-top" alt="Digitális Bérlet" />
+                        <div class="navbar-site-title">
+                            Digitális<br/>
+                            Bérlet
+                        </div>
+                    </a>
+
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    {this.renderAuthentication()}                    
-                    
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        {this.renderMenu()}
+                        {this.renderAuthentication()}
+                    </div>
                 </div>
             </nav>
         );

@@ -4,12 +4,14 @@ import store from '../store';
 import { addUserAction, removeUserAction } from '../actions';
 import { Link } from 'react-router-dom';
 import { GoogleLogout } from 'react-google-login';
+import { Redirect } from 'react-router-dom';
 
 class NavigationBar extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            firstRender: true
+            firstRender: true,
+            redirect: false
         };
     }
 
@@ -39,6 +41,7 @@ class NavigationBar extends React.Component{
                 store.dispatch(
                     removeUserAction()
                 );
+                this.setState({redirect: true})
         })
         .catch(err => {
             console.log(err);
@@ -69,7 +72,14 @@ class NavigationBar extends React.Component{
             );
         }
     }
-
+    renderRedirect(){
+        if (this.state.redirect) {
+            this.setState({
+                redirect: false
+            });
+            return <Redirect to='/' />
+        }
+    }
     renderAuthentication(){
         const loggedInUser = store.getState().user;
         if (!loggedInUser.id) {
@@ -107,6 +117,7 @@ class NavigationBar extends React.Component{
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         {this.renderMenu()}
                         {this.renderAuthentication()}
+                        {this.renderRedirect()}
                     </div>
                 </div>
             </nav>

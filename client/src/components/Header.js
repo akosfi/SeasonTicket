@@ -21,7 +21,8 @@ class Header extends React.Component{
                                 <p>
                                     Vásárolj Digitális bérletet a kedvenc szolgáltatásaid használatához. Alig párperc alatt kiválthatod és már használhatod is.
                                 </p>
-                                <button type="button" class="btn btn-fancy">Próbáld ki most</button>
+                                <button type="button" class="btn btn-fancy">Bérlet vásárlás</button>
+                                <button type="button" class="btn btn-fancy">Bérlet létrehozás</button>
                             </div>
                             <div class="col-sm-4">
                                 <img class="img-fluid" src="assets/image/mobile-ticket.png" />

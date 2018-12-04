@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import Home from './components/Home';
 import TicketAdder from './components/TicketAdder';
 import DetailedTicketView from './components/DetailedTicketView';
-import Header from './components/Header';
 import Footer from './components/Footer';
 import UserBusinesses from './components/UserBusinesses';
 import UserTickets from './components/UserTickets';
@@ -22,7 +21,6 @@ const render = () => {
       <Router>
         <div>
           <NavigationBar />
-          <Header />
 
           <Route exact path="/" component={Home}/>
           <Route exact path="/tickets" component={UserTickets} />

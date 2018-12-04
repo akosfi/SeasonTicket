@@ -58,9 +58,13 @@ class TicketList extends React.Component {
     }
     renderSearch(){
         if (this.props.type == "ALL_TICKET_TO_BUY") {
+
+            var userMessage = store.getState().user.id ? "Kattins a 'Vásárlás' gombra a bérlet megvásárlásához!" : "Jelentkezz be bérlet megvárálásához!";
+            
             return (
                 <div class="jumbotron">
                     <h4>Bérletek szűrése</h4>
+                    <h5>{userMessage}</h5>
                     <hr class="my-4"></hr>
                     <div class="row">
                         <div class="col-sm"> 

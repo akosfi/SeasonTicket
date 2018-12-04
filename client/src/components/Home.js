@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TicketList from './TicketList';
 import store from '../store';
 import { addTicketsAction } from '../actions';
-
+import Header from './Header';
 
 class Home extends Component {
   constructor(props) {
@@ -21,12 +21,13 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        
-        
-        <TicketList source={store.getState().tickets} type="ALL_TICKET_TO_BUY" buyable={store.getState().user.id != null}/>
-
-      </div>      
+      <div>  
+        <Header />
+        <div>
+          <TicketList source={store.getState().tickets} type="ALL_TICKET_TO_BUY" buyable={store.getState().user.id != null}/>
+        </div>
+      </div>
+            
     );
   }
 

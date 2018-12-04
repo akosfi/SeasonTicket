@@ -15,7 +15,7 @@ class TicketList extends React.Component {
             qMinPrice: "",
             qMaxPrice: "",
             qIsOccasional: "",
-            qCategory: "food"
+            qCategory: ""
         }
         this.onCategoryChange = this.onCategoryChange.bind(this);
         this.renderTicketItemByType = this.renderTicketItemByType.bind(this);
@@ -68,24 +68,26 @@ class TicketList extends React.Component {
                     <hr class="my-4"></hr>
                     <div class="row">
                         <div class="col-sm"> 
-                            <input onChange={this.onFilterChange} type="text" name="qName" class="form-control" placeholder="Name" value={this.state.qName} />
+                            <input onChange={this.onFilterChange} type="text" name="qName" class="form-control" placeholder="Név" value={this.state.qName} />
                         </div>
                         <div class="col-sm">
-                            <input onChange={this.onFilterChange} type="text" name="qMinPrice" class="form-control" placeholder="Minimum Price" value={this.state.qMinPrice} />
+                            <input onChange={this.onFilterChange} type="text" name="qMinPrice" class="form-control" placeholder="Minimum Ár" value={this.state.qMinPrice} />
                         </div>
                         <div class="col-sm">
-                            <input onChange={this.onFilterChange} type="text" name="qMaxPrice" class="form-control" placeholder="Maxiumum Price" value={this.state.qMaxPrice} />
+                            <input onChange={this.onFilterChange} type="text" name="qMaxPrice" class="form-control" placeholder="Maxiumum Ár" value={this.state.qMaxPrice} />
                         </div>
                         <div class="col-sm">
                             <input onChange={this.onFilterChange} type="checkbox" name="qIsOccasional" id="isOccasionalCheckbox" class="form-check-input" value={this.state.qIsOccasional} />
-                            <label class="form-check-label" for="isOccasionalCheckbox">Alkalmankénti bérlet</label>
+                            <label class="form-check-label" for="isOccasionalCheckbox">Alkalmankénti bérlet?</label>
                         </div>
                         <div class="col-sm">
                             <select onChange={this.onCategoryChange} value={this.state.qCategory} class="form-control" > 
-                                <option value="food">Food</option>
-                                <option value="dance">Dance</option>
-                                <option value="entertainment">Entertainment</option>
-                                <option value="a">Majd bövitjük...</option>
+                                <option value="">Összes</option>
+                                <option value="food">Étel, Ital</option>
+                                <option value="entertainment">Szórakoztatás</option>
+                                <option value="traveling">Közlekedés</option>
+                                <option value="health">Egézség</option>
+                                <option value="other">Egyéb</option>
                             </select>
                         </div>
                     </div>                    

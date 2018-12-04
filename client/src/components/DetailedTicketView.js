@@ -9,6 +9,8 @@ class DeatiledTicketView extends React.Component{
         this.state = {
             response: null
         }
+        this.renderOccasionByType = this.renderOccasionByType.bind(this);
+        this.renderData = this.renderData.bind(this);
     }
     
     componentWillMount(){
@@ -18,7 +20,29 @@ class DeatiledTicketView extends React.Component{
             this.setState({response});
         });
     }
-
+    renderOccasionByType(){
+        if(this.state.isOccasional){
+            return (<div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Hátralévő alkalmak száma:</span>
+                        </div>
+                        <div class="input-group-append">
+                            <span class="input-group-text">{this.state.response.occasionNumber}</span>
+                        </div>
+                    </div>);
+        }
+        else{
+            return (
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Felhasználható:</span>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text">{this.state.response.daysOfValidity} napon belül</span>
+                    </div>
+                </div>);
+        }
+    }
     renderData(){
         if(this.state.response != null){
             return (
@@ -31,43 +55,21 @@ class DeatiledTicketView extends React.Component{
                         <h5 class="card-title">{this.state.response.name}</h5>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Registraion Date:</span>
+                                <span class="input-group-text">Vásárlás dátuma:</span>
                             </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">{this.state.response.registrationDate}</span>
                             </div>
                         </div>
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Occasion Number:</span>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">{this.state.response.occasionNumber}</span>
-                            </div>
-                        </div>
+
+                        {this.renderOccasionByType()}
+                        
+
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Days of Validity:</span>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">{this.state.response.daysOfValidity}</span>
-                            </div>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Is Occasional:</span>
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">{this.state.response.isOccasional}</span>
-                            </div>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Price:</span>
+                                <span class="input-group-text">Ár:</span>
                             </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">{this.state.response.price} Ft</span>
@@ -76,7 +78,7 @@ class DeatiledTicketView extends React.Component{
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Business Name:</span>
+                                <span class="input-group-text">Vállalkozás neve:</span>
                             </div>
                             <div class="input-group-append">
                                 <span class="input-group-text">{this.state.response.businessName}</span>

@@ -25,14 +25,14 @@ class TicketAdder extends React.Component{
     validateInput(){
         let errors = [];
         if(this.state.name == "")
-            errors.push("Name field can not be empty!");
+            errors.push("Név mező nem lehet üres!");
         if(this.state.price == "")
-            errors.push("Price field can not be empty!");
+            errors.push("Ár mező nem lehet üres!");
         if(this.state.validityValue == "")
-            errors.push("Validity field can not be empty!");
+            errors.push("Érvényesség tartama mező nem lehet üres!");
 
         if(this.state.isOccasional == null)
-            errors.push("You have to choose ticket type!");
+            errors.push("Kérem adja meg az érvényesség típusát!");
 
         this.setState({
             errors: errors
@@ -133,25 +133,26 @@ class TicketAdder extends React.Component{
                             })} 
                         </select>
                         <select value={this.state.category} onChange={(e) => this.setState({category: e.target.value})}> 
-                            <option value="food">Food</option>
-                            <option value="dance">Dance</option>
-                            <option value="entertainment">Entertainment</option>
-                            <option value="a">Majd bövitjük...</option>
+                            <option value="food">Étel, Ital</option>
+                            <option value="entertainment">Szórakoztatás</option>
+                            <option value="traveling">Közlekedés</option>
+                            <option value="health">Egézség</option>
+                            <option value="other">Egyéb</option>
                         </select>
                         <div className="form-group">
-                            <label>Name:</label>
+                            <label>Név:</label>
                             <input className="form-control" type="text" name="name" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/>
                         </div>
                         <div className="form-group">
-                            <label>Price:</label>
+                            <label>Ár:</label>
                             <input className="form-control" type="number" name="price" onChange={e => this.setState({price: e.target.value})} value={this.state.price}/>
                         </div>
                         <div className="form-group">
-                            <label>Validity:</label>
+                            <label>Érvényesség tartama:</label>
                             <input className="form-control" type="number" name="validityValue" onChange={e => this.setState({validityValue: e.target.value})} value={this.state.validityValue}/>
                         </div>
                         <div className="form-group">
-                            <label>Type:</label>
+                            <label>Érvényesség típusa:</label>
                             {this.renderTicketValidityInput()}
                         </div>
                         <input type="submit" value="Send" />

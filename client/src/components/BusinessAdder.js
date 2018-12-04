@@ -24,9 +24,9 @@ class BusinessAdder extends React.Component{
     validateInput(){
         let errors = [];
         if(this.state.name == "")
-            errors.push("Name field can not be empty!");
+            errors.push("Név mező nem lehet üres!");
         if(this.state.email == "")
-            errors.push("Email field can not be empty!");
+            errors.push("Email mező nem lehet üres!");
         
         this.setState({
             errors: errors
@@ -78,11 +78,11 @@ class BusinessAdder extends React.Component{
                     </ul>
                     <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
-                            <label>Name:</label>
+                            <label>Név:</label>
                             <input className="form-control" type="text" name="name" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/>
                         </div>
                         <div className="form-group">
-                            <label>Contact email:</label>
+                            <label>Email-cím:</label>
                             <input className="form-control" type="text" name="email" onChange={e => this.setState({email: e.target.value})} value={this.state.email}/>
                         </div>
                         <input type="submit" value="Send" />

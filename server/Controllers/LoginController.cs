@@ -60,11 +60,11 @@ namespace server.Controllers
 
                 await _context.SaveChangesAsync();
                 HttpContext.Session.SetString("userId", newUser.ID.ToString());
-                return Ok(newUser.ID);
+                return Ok("200");
             }
 
             HttpContext.Session.SetString("userId", googleRecord.User.ID.ToString());
-            return Ok(googleRecord.User.ID);
+            return Ok("200");
 
         }
 

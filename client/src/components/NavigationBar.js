@@ -13,24 +13,31 @@ class NavigationBar extends React.Component{
             firstRender: true,
             redirect: false
         };
+        this.getSessionUserFromServer = this.getSessionUserFromServer.bind(this);
     }
 
     componentWillMount(){
         if(this.state.firstRender){
-            fetch("/api/login/")
+            this.getSessionUserFromServer();
+        }
+    }
+
+    getSessionUserFromServer(){
+        fetch("/api/login/")
             .then(response => response.json())
             .then(response => {
+                //console.log("Is user logged in on server? " + JSON.stringify(response));
                 if(response != "null"){
+                    
                     store.dispatch(
                         addUserAction(response)
                     );
+                    this.setState({firstRender: false});
                 }
             })
             .catch(err => {
                 console.log(err);
             });
-            this.setState({firstRender: false});
-        }
     }
 
     onLogout = () => {
@@ -50,6 +57,7 @@ class NavigationBar extends React.Component{
 
     renderMenu() {
         const loggedInUserId = store.getState().user.id;
+        //console.log("Is user logged in on frontend?" + loggedInUserId);
         if (loggedInUserId) {
             return (
                 <ul class="navbar-nav ml-auto">
@@ -83,7 +91,7 @@ class NavigationBar extends React.Component{
     renderAuthentication(){
         const loggedInUser = store.getState().user;
         if (!loggedInUser.id) {
-            return <UserAuthenticator />
+            return <UserAuthenticator onLogin={this.getSessionUserFromServer} />
         }
         console.log(loggedInUser);
         return (

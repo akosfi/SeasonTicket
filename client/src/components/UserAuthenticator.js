@@ -18,14 +18,17 @@ class UserAuthenticator extends React.Component{
                 "googleId": response.googleId
             })
           })
-          .then(response => response.text())
+          .then(response => response.json())
           .then(response => {
+            if(response == "200")
+                this.props.onLogin();
+            /*console.log("Login response from server: " + JSON.stringify(response));
             store.dispatch({
                 type: "ADD_USER",
                 payload: {
                     user: response
                 }
-            });
+            });*/
           })
           .catch(function (error) {
             console.log('Request failed', error);

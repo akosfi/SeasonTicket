@@ -1,7 +1,5 @@
 import React from 'react';
 
-import NavigationBar from './NavigationBar';
-
 class Header extends React.Component{
     constructor(props){
         super(props);
@@ -11,7 +9,7 @@ class Header extends React.Component{
     render(){
         return(           
             <header class="masthead text-white">
-                <NavigationBar />
+                
                 <div class="masthead-content">
                     <div class="container masthead-backlayer">
                         <div class="row">

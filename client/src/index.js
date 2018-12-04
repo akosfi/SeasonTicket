@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import UserBusinesses from './components/UserBusinesses';
 import UserTickets from './components/UserTickets';
 import BusinessAdder from './components/BusinessAdder';
+import NavigationBar from './components/NavigationBar';
 
 import store from './store';
 
@@ -20,6 +21,7 @@ const render = () => {
     <Provider store={store}>
       <Router>
         <div>
+          <NavigationBar />
           <Header />
 
           <Route exact path="/" component={Home}/>

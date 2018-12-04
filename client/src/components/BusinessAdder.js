@@ -77,8 +77,9 @@ class BusinessAdder extends React.Component{
                         })}
                     </ul>
                     <form onSubmit={this.handleSubmit}>
+                        <h1>Bérlet kibocsátáshoz fel kell vennie vállalkozása email címét és nevét a rendszerünkben! Ezt itt teheti meg: </h1>
                         <div className="form-group">
-                            <label>Név:</label>
+                            <label>Vállalkozás neve:</label>
                             <input className="form-control" type="text" name="name" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/>
                         </div>
                         <div className="form-group">

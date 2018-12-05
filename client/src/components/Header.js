@@ -7,8 +7,7 @@ class Header extends React.Component{
     }
     render(){
         return(           
-            <header class="masthead text-white">
-                
+            <header class="masthead text-white">                
                 <div class="masthead-content">
                     <div class="container masthead-backlayer">
                         <div class="row">
@@ -21,8 +20,6 @@ class Header extends React.Component{
                                     Vásárolj Digitális bérletet a kedvenc szolgáltatásaid használatához. Alig párperc alatt kiválthatod és már használhatod is.
                                 </p>
                                 <button onClick={this.props.onButtonSelect} value="ticketbuy" type="button" class="btn btn-fancy">Bérlet vásárlás</button>
-                                <button onClick={this.props.onButtonSelect} value="ticketsell" type="button" class="btn btn-fancy">Bérlet létrehozás</button>
-
                             </div>
                             <div class="col-sm-4">
                                 <img class="img-fluid" src="assets/image/mobile-ticket.png" />

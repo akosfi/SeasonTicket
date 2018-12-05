@@ -1,5 +1,5 @@
 import React from 'react';
-
+import HeaderSolid from './HeaderSolid';
 
 class DeatiledTicketView extends React.Component{
     constructor(props){
@@ -94,13 +94,16 @@ class DeatiledTicketView extends React.Component{
 
     render(){
         return (
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        {this.renderData()}
+            <div>
+                <HeaderSolid />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            {this.renderData()}
+                        </div>
+                        <div class="col-sm-2"></div>
                     </div>
-                    <div class="col-sm-2"></div>
                 </div>
             </div>
         );

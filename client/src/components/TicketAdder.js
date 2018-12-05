@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import _ from "lodash";
 import store from '../store';
+import HeaderSolid from './HeaderSolid';
+
 import {addTicketAction} from '../actions'
 
 class TicketAdder extends React.Component{
@@ -84,19 +86,34 @@ class TicketAdder extends React.Component{
 
     renderTicketValidityInput(){
         return (
-            <div>
-                <label>
-                    <input type="radio" value="false" 
+            <div class="input-group mb-4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Érvényesség típusa:</span>
+                </div>
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="radio" value="false" 
                         checked={this.state.isOccasional === "false"} 
                         onChange={this.handleRadioChange} />
-                    Days
-                </label>
-                <label>
-                    <input type="radio" value="true" 
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Days
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="radio" value="true" 
                         checked={this.state.isOccasional === "true"} 
                         onChange={this.handleRadioChange} />
-                    Occasions
-                </label>
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        Occasions
+                    </div>
+                </div>
             </div>
         );        
     }
@@ -119,48 +136,70 @@ class TicketAdder extends React.Component{
     render(){
         return(
             <div>
-                {this.renderRedirect()}
-                <div className="jumbotron">
-                    <ul>
-                        {this.state.errors.map(e => {
-                            return <li>{e}</li>
-                        })}
-                    </ul>
-                    <form onSubmit={this.handleSubmit}>
-                        <select name="businessID" onChange={this.handleSelectChange} value={this.state.selectedBusiness} >
-                            {_.map(store.getState().businesses, business => {
-                                return <option value={business.id} >{business.name}</option>
-                            })} 
-                        </select>
-                        <select value={this.state.category} onChange={(e) => this.setState({category: e.target.value})}> 
-                            <option value="food">Étel, Ital</option>
-                            <option value="entertainment">Szórakoztatás</option>
-                            <option value="traveling">Közlekedés</option>
-                            <option value="health">Egézség</option>
-                            <option value="other">Egyéb</option>
-                        </select>
-                        <div className="form-group">
-                            <label>Név:</label>
-                            <input className="form-control" type="text" name="name" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Ár:</label>
-                            <input className="form-control" type="number" name="price" onChange={e => this.setState({price: e.target.value})} value={this.state.price}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Érvényesség tartama:</label>
-                            <input className="form-control" type="number" name="validityValue" onChange={e => this.setState({validityValue: e.target.value})} value={this.state.validityValue}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Érvényesség típusa:</label>
+                <HeaderSolid />
+                <div class="container">
+                    {this.renderRedirect()}
+                    <div class="jumbotron">
+                        <ul>
+                            {this.state.errors.map(e => {
+                                return <li>{e}</li>
+                            })}
+                        </ul>
+                        <form onSubmit={this.handleSubmit}>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Cég:</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" name="businessID" onChange={this.handleSelectChange} value={this.state.selectedBusiness} >
+                                    {_.map(store.getState().businesses, business => {
+                                        return <option value={business.id} >{business.name}</option>
+                                    })} 
+                                </select>
+                            </div>                           
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect02">Categória:</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect02" value={this.state.category} onChange={(e) => this.setState({category: e.target.value})}> 
+                                    <option value="food">Étel, Ital</option>
+                                    <option value="entertainment">Szórakoztatás</option>
+                                    <option value="traveling">Közlekedés</option>
+                                    <option value="health">Egézség</option>
+                                    <option value="other">Egyéb</option>
+                                </select>
+                            </div>
+
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Név:</span>
+                                </div>
+                                <input class="form-control" placeholder="Név" type="text" name="name" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Ár:</span>
+                                </div>
+                                <input class="form-control" type="number" name="price" placeholder="Ár" onChange={e => this.setState({price: e.target.value})} value={this.state.price}/>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Érvényesség tartama:</span>
+                                </div>
+                                <input class="form-control" type="number" name="validityValue" placeholder="Érvényesség tartama" onChange={e => this.setState({validityValue: e.target.value})} value={this.state.validityValue}/>
+                            </div>
+
                             {this.renderTicketValidityInput()}
-                        </div>
-                        <input type="submit" value="Send" />
-                    </form>
-                    <Link to='/businesses'> -Back </Link>
+
+                            <input class="btn btn-primary" type="submit" value="Mentés" />
+                            <Link className="btn btn-secondary ml-3" to='/businesses'>Vissza</Link>
+                        </form>
+                    </div>
                 </div>
             </div>
-            
         );
     }
 }

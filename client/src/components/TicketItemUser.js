@@ -27,7 +27,7 @@ class TicketItemUser extends React.Component{
         return(
             <div class="col-3 item">
                 <div class="card">
-                    <img class="card-img-top" src="https://picsum.photos/420/210?image=436" alt="Card image cap"/>
+                    <img class="card-img-top" src={"https://picsum.photos/420/210?image=" + this.props.item.id} alt="Card cap"/>
                     <div class="card-body">
                         <h5 class="card-title">{this.props.item.name}</h5>
                         {this.renderPrice()}

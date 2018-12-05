@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import store from '../store';
+import HeaderSolid from './HeaderSolid';
 import { Link } from 'react-router-dom';
 import { addUserBusinessesAction } from '../actions';
 import _ from "lodash";
@@ -50,21 +51,51 @@ class UserBusinesses extends Component {
         );
 
     }
+
+    renderBusinessJumbotron() {
+        return (<div class="container mb-5">
+        <div class="inner-action">
+          <div class="content-text">
+            <h3 class="title">Indítsd be saját vállalkozásodat a Digitális Bérlettel! Kezdj bele most ...</h3>
+            <div class="call-action-button">
+                <Link to="/businesses/new" className="btn btn-fancy">
+                    Vállalkozás hozzáadása
+                </Link>
+            </div>
+          </div>
+        </div>
+      </div>);
+    }
+
     render(){
         return (
             <div>
-                <Link to="/businesses/new">Vállalkozás hozzáadása</Link>
-                <div>
-                    <select onChange={this.handleSelectChange} value={this.state.selectedBusiness} >
-                        <option value="all">Összes</option>
-                        {_.map(store.getState().businesses, business => {
-                            return <option value={business.id} >{business.name}</option>
-                        })} 
-                    </select>
-                </div>
-                <Link to="/tickets/add">Bérlet felvétel</Link>
-                <div>
-                    {this.renderOwnTickets()}
+                <HeaderSolid />
+                {this.renderBusinessJumbotron()}
+                <div class="container">
+                    <div class="jumbotron">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">
+                                    <i class="fas fa-search"></i>
+                                </label>
+                            </div>
+                            <select onChange={this.handleSelectChange} value={this.state.selectedBusiness} class="custom-select" id="inputGroupSelect01" >
+                                <option value="all">Összes</option>
+                                {_.map(store.getState().businesses, business => {
+                                    return <option value={business.id} >{business.name}</option>
+                                })} 
+                            </select>
+                            <div class="input-group-append">
+                                <Link to="/tickets/add" className="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Bérlet felvétel
+                                </Link>                            
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        {this.renderOwnTickets()}
+                    </div>
                 </div>
             </div>
           );

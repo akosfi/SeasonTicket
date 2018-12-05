@@ -1,4 +1,5 @@
 import React from 'react';
+import HeaderSolid from './HeaderSolid';
 import { Link, Redirect } from 'react-router-dom';
 
 
@@ -68,30 +69,39 @@ class BusinessAdder extends React.Component{
     render(){
         return (
             <div>
-                {this.renderRedirect()}
+                <HeaderSolid />
+                <div class="container">
+                    {this.renderRedirect()}
 
-                <div className="jumbotron">
-                    <ul>
-                        {this.state.errors.map(e => {
-                            return <li>{e}</li>
-                        })}
-                    </ul>
-                    <form onSubmit={this.handleSubmit}>
-                        <h1>Bérlet kibocsátáshoz fel kell vennie vállalkozása email címét és nevét a rendszerünkben! Ezt itt teheti meg: </h1>
-                        <div className="form-group">
-                            <label>Vállalkozás neve:</label>
-                            <input className="form-control" type="text" name="name" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Email-cím:</label>
-                            <input className="form-control" type="text" name="email" onChange={e => this.setState({email: e.target.value})} value={this.state.email}/>
-                        </div>
-                        <input type="submit" value="Send" />
-                    </form>
+                    <div className="jumbotron">
+                        <ul>
+                            {this.state.errors.map(e => {
+                                return <li>{e}</li>
+                            })}
+                        </ul>
+                        <form onSubmit={this.handleSubmit}>
+                            <h1>Bérlet kibocsátáshoz fel kell vennie vállalkozása email címét és nevét a rendszerünkben!</h1>
+                            <p>Ezt itt teheti meg:</p>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Vállalkozás neve:</span>
+                                </div>
+                                <input class="form-control" type="text" placeholder="Vállalkozás neve" name="name" onChange={e => this.setState({name: e.target.value})} value={this.state.name}/>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">Email-cím:</span>
+                                </div>
+                                <input class="form-control" placeholder="Email-cím" type="text" name="email" onChange={e => this.setState({email: e.target.value})} value={this.state.email}/>
+                            </div>
+
+                            <input class="btn btn-primary" type="submit" value="Mentés" />
+                            <Link className="btn btn-secondary ml-3" to='/businesses'>Vissza</Link>
+                        </form>
+                    </div>
                 </div>
-
-
-                <Link to='/businesses'> -Back </Link>
             </div>
         );
     }

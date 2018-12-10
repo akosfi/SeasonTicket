@@ -99,7 +99,7 @@ class TicketAdder extends React.Component{
                 </div>
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        Days
+                        Napok
                     </div>
                 </div>
                 <div class="input-group-prepend">
@@ -111,7 +111,7 @@ class TicketAdder extends React.Component{
                 </div>
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                        Occasions
+                        Alkalmak
                     </div>
                 </div>
             </div>

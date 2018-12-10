@@ -21,7 +21,6 @@ const render = () => {
       <Router>
         <div>
           <NavigationBar />
-
           <Route exact path="/" component={Home}/>
           <Route exact path="/tickets" component={UserTickets} />
           <Route exact path="/tickets/add" component={TicketAdder} />  

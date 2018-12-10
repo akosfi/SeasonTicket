@@ -114,41 +114,40 @@ namespace server.Controllers
            
             if (!HttpContext.Session.Keys.Contains("userId") || HttpContext.Session.GetString("userId").Equals(""))
             {
-                return Ok("404");
+                return Ok("Bérlet ellenörzés meghiúsúlt: Az ellenörzéshez jelentkezzen be!");
             }
             
             
             if (isValidTicket.Business.userID != Int32.Parse(HttpContext.Session.GetString("userId")))
             {
-                return Ok("404");
+                return Ok("Bérlet ellenörzés meghiúsúlt: A bérletet csak a tulajdonosa ellenörizheti.");
             }
             
             if (userTicket == null || userTicket.userID != userId || isValidTicket == null)
             {
-                return Ok("404");
+                return Ok("Bérlet ellenörzés meghiúsúlt: A bérlet nem létezik.");
             }
             
             if (isValidTicket.IsOccasional)
             {
                 if(userTicket.OccasionNumber <= 0)
                 {
-                    return Ok("404");
+                    return Ok("Bérlet ellenörzés eredménye: A hátralévő alkalmak száma lejárt.");
                 }
                 userTicket.OccasionNumber -= 1;
                 _context.SaveChanges();
-                return Ok("200");
+                return Ok("Bérlet ellenörzés eredménye: Sikeres azonosítás :)");
             }
             else
             {
                 DateTime expiryDate = userTicket.RegistrationDate.AddDays(isValidTicket.DaysOfValidity);
                 if(DateTime.Now.Date >= expiryDate)
                 {
-                    return Ok("404");
+                    return Ok("Bérlet ellenörzés eredménye: A bérlet lejárt.");
                 }
-                return Ok("200");
+                return Ok("Bérlet ellenörzés eredménye: Sikeres azonosítás :)");
             }
         }
-        //https://localhost:44306/api/tickets/check/3?userTicketID=2
 
         // PUT api/tickets/5
         [HttpPut("{id}")]

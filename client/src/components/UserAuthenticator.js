@@ -43,7 +43,7 @@ class UserAuthenticator extends React.Component{
                         <GoogleLogin
                             //dev client_id: 869554201067-8jd4ihc99gpqoeu9gpgr7l4jtovi4ugc.apps.googleusercontent.com
                             //prod client_id : 403345559269-hfu9slouel589rniqd27bnongb2nkk43.apps.googleusercontent.com
-                            clientId="869554201067-8jd4ihc99gpqoeu9gpgr7l4jtovi4ugc.apps.googleusercontent.com"
+                            clientId="403345559269-hfu9slouel589rniqd27bnongb2nkk43.apps.googleusercontent.com"
                             onSuccess={this.onSuccessResponse}
                             onFailure={this.onFailureResponse}
                             buttonText="Bejelentkezés"

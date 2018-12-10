@@ -21,7 +21,7 @@ class DeatiledTicketView extends React.Component{
         });
     }
     renderOccasionByType(){
-        if(this.state.isOccasional){
+        if(this.state.response.isOccasional){
             return (<div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">Hátralévő alkalmak száma:</span>
